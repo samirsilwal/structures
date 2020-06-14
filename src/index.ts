@@ -26,3 +26,5 @@ console.log(mylist1.map(x => x + 10).toString())
 console.log("test filter")
 console.log(mylist1.filter(x => x % 2 === 0).toString())
 
+console.log("test reduce")
+console.log(mylist1.reduce((a, acc) => acc + a ).toString())

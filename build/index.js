@@ -16,3 +16,5 @@ console.log("test map");
 console.log(mylist1.map(function (x) { return x + 10; }).toString());
 console.log("test filter");
 console.log(mylist1.filter(function (x) { return x % 2 === 0; }).toString());
+console.log("test reduce");
+console.log(mylist1.reduce(function (a, acc) { return acc + a; }).toString());

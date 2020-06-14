@@ -6,6 +6,8 @@
 
 export type mapFunction<T, U> = (t: T) => U
 export type filterFunction<T> = (t: T) => boolean
+export type reduceFunction<T> = (t: T, acc: T) => T
+
 
 /**
  * Interface for a Node in LinkedList
@@ -58,7 +60,7 @@ export class LinkedList<T> {
      */
     private iterateOver = (callback: any, node: Node<T> = this.head): void => {
         if (!node) {
-            return 
+            return
         }
         callback(node.value)
         this.iterateOver(callback, node.next)
@@ -72,7 +74,7 @@ export class LinkedList<T> {
      */
     private getlTail = (node: Node<T> = this.head.next): LinkedList<T> => {
         let temp: LinkedList<T> = new LinkedList<T>()
-        while(node){
+        while (node) {
             temp.append(node.value)
             node = node.next
         }
@@ -139,7 +141,7 @@ export class LinkedList<T> {
     public toLLString = (): string => {
         let temp = ""
         this.iterateOver(i => {
-            temp =  temp + "[ " + i + " ]" + "->"
+            temp = temp + "[ " + i + " ]" + "->"
         });
         return temp + "null";
     }
@@ -151,7 +153,7 @@ export class LinkedList<T> {
     public toString = (): string => {
         let temp = "[ "
         this.iterateOver(i => {
-            temp =  temp + i + " "
+            temp = temp + i + " "
         });
         return temp + "]";
     }
@@ -163,8 +165,23 @@ export class LinkedList<T> {
      * arr(Array<T>): Array of unit type T.
      */
     public fromArray = (arr: T[]): LinkedList<T> => {
-         arr.forEach(this.append);
-         return this
+        arr.forEach(this.append);
+        return this
+    }
+
+    /**
+     * Method:
+     * parameter:
+     * list(LinkedList<T>): list needed to be appended to the end
+     * returns the transformed or mapped collection of linkedList itself.
+     */
+    public "+" = (list: LinkedList<T>): LinkedList<T> => {
+        let node: Node<T> = list.head
+        while (node) {
+            this.append(node.value)
+            node = node.next
+        }
+        return this
     }
 
     /**
@@ -174,9 +191,9 @@ export class LinkedList<T> {
      * feature: A call back method applied for each element of the collection.
      * returns the transformed or mapped collection of linkedList itself.
      */
-    private testMap<U>(callback: mapFunction<T, U>, node: Node<T> = this.head): LinkedList<U>{
+    private testMap<U>(callback: mapFunction<T, U>, node: Node<T> = this.head): LinkedList<U> {
         let temp: LinkedList<U> = new LinkedList<U>()
-        while(node){
+        while (node) {
             temp.append(callback(node.value))
             node = node.next
         }
@@ -192,8 +209,8 @@ export class LinkedList<T> {
      * feature: A call back method applied for each element of the collection.
      * returns the transformed or mapped collection of linkedList itself.
      */
-    public map<U>(callback: mapFunction<T, U>, acc: LinkedList<U> = new LinkedList<U>()): LinkedList<U>{
-        if (!this.tail){
+    public map<U>(callback: mapFunction<T, U>, acc: LinkedList<U> = new LinkedList<U>()): LinkedList<U> {
+        if (!this.tail) {
             return acc
         }
         return this.ltail.map(callback, acc["+"](new LinkedList<U>().append(callback(this.lhead))))
@@ -205,36 +222,20 @@ export class LinkedList<T> {
      * feature: A predicate callback method applied for each element of the collection.
      * returns the filterd collection of linkedList itself which passes the predicate.
      */
-    public filter(callback: filterFunction<T>, acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T>{
+    public filter(callback: filterFunction<T>, acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T> {
         if (!this.tail) return acc;
-        return callback(this.lhead) ? this.ltail.filter(callback, acc["+"](new LinkedList<T>().append(this.lhead))) :this.ltail.filter(callback, acc)
+        return callback(this.lhead) ? this.ltail.filter(callback, acc["+"](new LinkedList<T>().append(this.lhead))) : this.ltail.filter(callback, acc)
     }
-
-    // /**
-    //  * Method:
-    //  * parameter:
-    //  * feature: A predicate callback method applied for each element of the collection.
-    //  * returns the reduced collection of linkedList itself which passes the predicate.
-    //  */
-    // public reduce(callback: filterFunction<T>, acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T>{
-    //     if (!this.tail) return acc;
-    //     return callback(this.lhead) ? this.ltail.reduce(callback, acc["+"](new LinkedList<T>().append(this.lhead))) :this.ltail.filter(callback, acc)
-    // }
 
     /**
      * Method:
      * parameter:
-     * list(LinkedList<T>): list needed to be appended to the end
-     * returns the transformed or mapped collection of linkedList itself.
+     * feature: A predicate callback method applied for each element of the collection.
+     * returns the reduced collection of linkedList itself which passes the predicate.
      */
-    public "+" = (list: LinkedList<T>): LinkedList<T> => {
-        let node: Node<T> = list.head
-        while(node) {
-            this.append(node.value)
-            node = node.next
-        }
-        return this
-    } 
-
+    public reduce(callback: reduceFunction<T>, acc: T = null): T {
+        if (!this.tail) return acc;
+        return this.ltail.reduce(callback, callback(this.lhead, acc))
+    }
 
 }

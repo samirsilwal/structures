@@ -131,16 +131,6 @@ var LinkedList = /** @class */ (function () {
             arr.forEach(_this.append);
             return _this;
         };
-        // /**
-        //  * Method:
-        //  * parameter:
-        //  * feature: A predicate callback method applied for each element of the collection.
-        //  * returns the reduced collection of linkedList itself which passes the predicate.
-        //  */
-        // public reduce(callback: filterFunction<T>, acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T>{
-        //     if (!this.tail) return acc;
-        //     return callback(this.lhead) ? this.ltail.reduce(callback, acc["+"](new LinkedList<T>().append(this.lhead))) :this.ltail.filter(callback, acc)
-        // }
         /**
          * Method:
          * parameter:
@@ -220,6 +210,18 @@ var LinkedList = /** @class */ (function () {
         if (!this.tail)
             return acc;
         return callback(this.lhead) ? this.ltail.filter(callback, acc["+"](new LinkedList().append(this.lhead))) : this.ltail.filter(callback, acc);
+    };
+    /**
+     * Method:
+     * parameter:
+     * feature: A predicate callback method applied for each element of the collection.
+     * returns the reduced collection of linkedList itself which passes the predicate.
+     */
+    LinkedList.prototype.reduce = function (callback, acc) {
+        if (acc === void 0) { acc = null; }
+        if (!this.tail)
+            return acc;
+        return this.ltail.reduce(callback, callback(this.lhead, acc));
     };
     return LinkedList;
 }());
