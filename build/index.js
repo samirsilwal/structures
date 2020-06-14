@@ -7,3 +7,5 @@ mylist.append(1);
 mylist.append(2);
 mylist.append(3);
 console.log(mylist.length);
+var mylist1 = new ll_1.LinkedList().fromArray([4, 9, 10, 1]);
+console.log(mylist1.toString());

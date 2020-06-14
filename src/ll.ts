@@ -43,19 +43,8 @@ export class LinkedList<T> {
      */
     private slength = (): number => {
         let count: number = 0;
-        this.iterateOver(_ => count++)
+        this.map(_ => count++)
         return count
-    }
-
-    /**
-     * A Generic iterator function which loops over each el in collection
-     */
-    private iterateOver = (callback: any, node: Node<T> = this.head): void => {
-        if (!node) {
-            return
-        }
-        callback(node.value)
-        this.iterateOver(callback, node.next)
     }
 
     // Getters
@@ -68,6 +57,18 @@ export class LinkedList<T> {
      * returns true if collection is empty
      */
     public isEmpty = (): boolean => !this.head
+
+    /**
+     * A Generic iterator function which loops over each el in collection
+     * and apaplies callback to them along the traverse.
+     */
+    private map = (callback: any, node: Node<T> = this.head): void => {
+        if (!node) {
+            return
+        }
+        callback(node.value)
+        this.map(callback, node.next)
+    }
 
     /**
      * Method:
@@ -100,6 +101,41 @@ export class LinkedList<T> {
 
         this.appendToEnd(node)
         return this
+    }
+
+    /**
+     * Method:
+     * returns the typical linked list view of the collection.
+     */
+    public toLLString = (): string => {
+        let temp = ""
+        this.map(i => {
+            temp =  temp + "[ " + i + " ]" + "->"
+        });
+        return temp + "null";
+    }
+    
+    /**
+     * Method:
+     * returns the list view of the collection.
+     */
+    public toString = (): string => {
+        let temp = "[ "
+        this.map(i => {
+            temp =  temp + i + " "
+        });
+        return temp + "]";
+    }
+
+    /**
+     * Method:
+     * converts Array to LinkedList collection.
+     * parameter:
+     * arr(Array<T>): Array of unit type T.
+     */
+    public fromArray = (arr: T[]): LinkedList<T> => {
+         arr.forEach(this.append);
+         return this
     }
 
 }

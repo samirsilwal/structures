@@ -35,25 +35,26 @@ var LinkedList = /** @class */ (function () {
          */
         this.slength = function () {
             var count = 0;
-            _this.iterateOver(function (_) { return count++; });
+            _this.map(function (_) { return count++; });
             return count;
-        };
-        /**
-         * A Generic iterator function which loops over each el in collection
-         */
-        this.iterateOver = function (callback, node) {
-            if (node === void 0) { node = _this.head; }
-            if (!node) {
-                return;
-            }
-            callback(node.value);
-            _this.iterateOver(callback, node.next);
         };
         /**
          * Method:
          * returns true if collection is empty
          */
         this.isEmpty = function () { return !_this.head; };
+        /**
+         * A Generic iterator function which loops over each el in collection
+         * and apaplies callback to them along the traverse.
+         */
+        this.map = function (callback, node) {
+            if (node === void 0) { node = _this.head; }
+            if (!node) {
+                return;
+            }
+            callback(node.value);
+            _this.map(callback, node.next);
+        };
         /**
          * Method:
          * parameters:
@@ -81,6 +82,38 @@ var LinkedList = /** @class */ (function () {
                 return _this;
             }
             _this.appendToEnd(node);
+            return _this;
+        };
+        /**
+         * Method:
+         * returns the typical linked list view of the collection.
+         */
+        this.toLLString = function () {
+            var temp = "";
+            _this.map(function (i) {
+                temp = temp + "[ " + i + " ]" + "->";
+            });
+            return temp + "null";
+        };
+        /**
+         * Method:
+         * returns the list view of the collection.
+         */
+        this.toString = function () {
+            var temp = "[ ";
+            _this.map(function (i) {
+                temp = temp + i + " ";
+            });
+            return temp + "]";
+        };
+        /**
+         * Method:
+         * converts Array to LinkedList collection.
+         * parameter:
+         * arr(Array<T>): Array of unit type T.
+         */
+        this.fromArray = function (arr) {
+            arr.forEach(_this.append);
             return _this;
         };
     }
