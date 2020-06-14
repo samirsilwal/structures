@@ -10,13 +10,13 @@ export interface SNode<T> {
 }
 
 export class LinkedList<T> {
-    private EMPTY_NODE: SNode<T> = { value: null, next: null }
+    // private EMPTY_NODE: SNode<T> = { value: null, next: null }
     private head: SNode<T> = null
     private tail: SNode<T> = null
 
     private summonNode = (value: T): SNode<T> => {
         return {
-            value: value,
+            value,
             next: null
         }
     }
@@ -26,16 +26,16 @@ export class LinkedList<T> {
         this.tail.next = sNode
     }
 
-    private deleteFromHead = (value: T): Boolean => {
-        let deleted: Boolean = false
+    // private deleteFromHead = (value: T): boolean => {
+    //     let deleted: boolean = false
 
-        while(this.head && this.head.value) {
-            deleted = true
-            this.head = this.head.next
-        }
+    //     while (this.head && this.head.value) {
+    //         deleted = true
+    //         this.head = this.head.next
+    //     }
 
-        return deleted
-    }
+    //     return deleted
+    // }
 
     public isEmpty = () => !this.head;
 
@@ -52,59 +52,57 @@ export class LinkedList<T> {
         return this
     }
 
-    public fromArray = (value: T[]): LinkedList<T> => {
-        value.forEach(val => this.append(val));
-        return this
-    }
+    // public fromArray = (value: T[]): LinkedList<T> => {
+    //     value.forEach(val => this.append(val));
+    //     return this
+    // }
 
-    public *items() {
-        let sNode = this.head
-        while (sNode) {
-            yield sNode
-            sNode = sNode.next
-        }
-    }
+    // public *items() {
+    //     let sNode = this.head
+    //     while (sNode) {
+    //         yield sNode
+    //         sNode = sNode.next
+    //     }
+    // }
 
-    public delete = (value: T): Boolean => {
-        let deleted: Boolean = false;
+    // public delete = (value: T): boolean => {
+    //     let deleted: boolean = false;
 
-        if (this.isEmpty()) return deleted;
+    //     if (this.isEmpty()) return deleted;
 
-        deleted = this.deleteFromHead(value)
+    //     deleted = this.deleteFromHead(value)
 
-        let current = this.head || this.EMPTY_NODE
+    //     let current = this.head || this.EMPTY_NODE
 
-        while(current.next) {
-            if (current.next.value == value) {
-                deleted = true
-                current.next = current.next.next
-            }else {
-                current = current.next
-            }
-        }
+    //     while (current.next) {
+    //         if (current.next.value === value) {
+    //             deleted = true
+    //             current.next = current.next.next
+    //         } else {
+    //             current = current.next
+    //         }
+    //     }
 
-        if (this.tail.value === value) {
-            this.tail = current
-        }
-        
-        return deleted
-    }
+    //     if (this.tail.value === value) {
+    //         this.tail = current
+    //     }
 
-    public find = (compare: STFunction<T, Boolean>) => {
-        if (this.isEmpty()) {
-            return null
-        }
-        let node = this.head
+    //     return deleted
+    // }
 
-        while(node){
-            if (compare(node.value)){
-                return node
-            }
-            node = node.next
-        }
-        return null
-    }
+    // public find = (compare: STFunction<T, boolean>) => {
+    //     if (this.isEmpty()) {
+    //         return null
+    //     }
+    //     let node = this.head
+
+    //     while (node) {
+    //         if (compare(node.value)) {
+    //             return node
+    //         }
+    //         node = node.next
+    //     }
+    //     return null
+    // }
 
 }
-
-
