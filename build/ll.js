@@ -35,7 +35,7 @@ var LinkedList = /** @class */ (function () {
          */
         this.slength = function () {
             var count = 0;
-            _this.map(function (_) { return count++; });
+            _this.iterateOver(function (_) { return count++; });
             return count;
         };
         /**
@@ -47,13 +47,13 @@ var LinkedList = /** @class */ (function () {
          * A Generic iterator function which loops over each el in collection
          * and apaplies callback to them along the traverse.
          */
-        this.map = function (callback, node) {
+        this.iterateOver = function (callback, node) {
             if (node === void 0) { node = _this.head; }
             if (!node) {
-                return;
+                return _this;
             }
             callback(node.value);
-            _this.map(callback, node.next);
+            _this.iterateOver(callback, node.next);
         };
         /**
          * Method:
@@ -90,7 +90,7 @@ var LinkedList = /** @class */ (function () {
          */
         this.toLLString = function () {
             var temp = "";
-            _this.map(function (i) {
+            _this.iterateOver(function (i) {
                 temp = temp + "[ " + i + " ]" + "->";
             });
             return temp + "null";
@@ -101,7 +101,7 @@ var LinkedList = /** @class */ (function () {
          */
         this.toString = function () {
             var temp = "[ ";
-            _this.map(function (i) {
+            _this.iterateOver(function (i) {
                 temp = temp + i + " ";
             });
             return temp + "]";

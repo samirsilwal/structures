@@ -43,7 +43,7 @@ export class LinkedList<T> {
      */
     private slength = (): number => {
         let count: number = 0;
-        this.map(_ => count++)
+        this.iterateOver(_ => count++)
         return count
     }
 
@@ -62,12 +62,12 @@ export class LinkedList<T> {
      * A Generic iterator function which loops over each el in collection
      * and apaplies callback to them along the traverse.
      */
-    private map = (callback: any, node: Node<T> = this.head): void => {
+    private iterateOver = (callback: any, node: Node<T> = this.head): LinkedList<T> => {
         if (!node) {
-            return
+            return this
         }
         callback(node.value)
-        this.map(callback, node.next)
+        this.iterateOver(callback, node.next)
     }
 
     /**
@@ -109,19 +109,19 @@ export class LinkedList<T> {
      */
     public toLLString = (): string => {
         let temp = ""
-        this.map(i => {
+        this.iterateOver(i => {
             temp =  temp + "[ " + i + " ]" + "->"
         });
         return temp + "null";
     }
-    
+
     /**
      * Method:
      * returns the list view of the collection.
      */
     public toString = (): string => {
         let temp = "[ "
-        this.map(i => {
+        this.iterateOver(i => {
             temp =  temp + i + " "
         });
         return temp + "]";

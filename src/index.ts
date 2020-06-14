@@ -12,4 +12,4 @@ console.log(mylist.length)
 const mylist1 = new LinkedList<number>().fromArray([4,9,10,1])
 
 
-console.log(mylist1.toString())
+console.log(mylist1)
