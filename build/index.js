@@ -30,3 +30,7 @@ console.log(testlistm.toString());
 console.log("test toarray");
 var a = testlistm.toArray();
 console.log(a);
+console.log("test remove value");
+console.log(testlistm.remove(10).toString());
+console.log("test remove  mutable");
+console.log(testlistm.mRemove(10));

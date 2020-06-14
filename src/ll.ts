@@ -26,6 +26,8 @@ export class LinkedList<T> {
     // private properties
     private head: Node<T> = null;
     private tail: Node<T> = null;
+    private EMPTY_NODE: Node<T> = { value: null, next: null }
+
 
     // private methods
     /**
@@ -133,6 +135,48 @@ export class LinkedList<T> {
 
         this.appendToEnd(node)
         return this
+    }
+
+    /**
+     * Method:
+     * parameter:
+     * value(T): value to be removed
+     * returns a new collection
+     */
+    public remove = (value: T): LinkedList<T> => {
+        return this.filter(i => i !== value)
+    }
+
+    /**
+     * Method:
+     * parameter:
+     * value(T): value to be removed
+     * returns boolean as result of operation
+     */
+    public mRemove = (value: T): boolean => {
+        let deleted: boolean = false
+        if (this.head.value === value) {
+            this.head = this.head.next
+            deleted = true
+        }
+
+        let currentNode = this.head || this.EMPTY_NODE
+
+        while(currentNode.next){
+            if (currentNode.next.value === value) {
+                currentNode.next = currentNode.next.next
+                deleted = true
+            }else {
+                currentNode = currentNode.next
+            }
+        }
+
+        if (this.tail.value === value) {
+            this.tail = this.EMPTY_NODE
+            deleted = true
+        }
+        
+        return deleted
     }
 
     /**

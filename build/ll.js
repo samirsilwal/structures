@@ -12,6 +12,7 @@ var LinkedList = /** @class */ (function () {
         // private properties
         this.head = null;
         this.tail = null;
+        this.EMPTY_NODE = { value: null, next: null };
         // private methods
         /**
          * Method:
@@ -100,6 +101,43 @@ var LinkedList = /** @class */ (function () {
             }
             _this.appendToEnd(node);
             return _this;
+        };
+        /**
+         * Method:
+         * parameter:
+         * value(T): value to be removed
+         * returns a new collection
+         */
+        this.remove = function (value) {
+            return _this.filter(function (i) { return i !== value; });
+        };
+        /**
+         * Method:
+         * parameter:
+         * value(T): value to be removed
+         * returns boolean as result of operation
+         */
+        this.mRemove = function (value) {
+            var deleted = false;
+            if (_this.head.value === value) {
+                _this.head = _this.head.next;
+                deleted = true;
+            }
+            var currentNode = _this.head || _this.EMPTY_NODE;
+            while (currentNode.next) {
+                if (currentNode.next.value === value) {
+                    currentNode.next = currentNode.next.next;
+                    deleted = true;
+                }
+                else {
+                    currentNode = currentNode.next;
+                }
+            }
+            if (_this.tail.value === value) {
+                _this.tail = _this.EMPTY_NODE;
+                deleted = true;
+            }
+            return deleted;
         };
         /**
          * Method:

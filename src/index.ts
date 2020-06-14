@@ -29,16 +29,24 @@ console.log("test ++")
 console.log(mylist1["++"](temp.fromArray([1, 2, 3])).toString())
 
 console.log("test foreach immutable")
-let testlist = new LinkedList<number>().fromArray([1,2,3,4])
+let testlist = new LinkedList<number>().fromArray([1, 2, 3, 4])
 let t = testlist.foreach(x => x * 5).toString()
 console.log(t)
 
 console.log("test foreach mutable")
-let testlistm = new LinkedList<number>().fromArray([1,2,3,4])
+let testlistm = new LinkedList<number>().fromArray([1, 2, 3, 4])
 testlistm.mforeach(x => x * 5)
 console.log(testlistm.toString())
 
 console.log("test toarray")
-
 let a = testlistm.toArray()
 console.log(a)
+
+console.log("test remove value")
+console.log(testlistm.remove(10).toString())
+
+console.log("test remove  mutable")
+console.log(testlistm.mRemove(10))
+
+
+
