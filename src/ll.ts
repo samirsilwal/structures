@@ -19,7 +19,7 @@ export class LinkedList<T> {
     // private properties
     private head: Node<T> = null;
     private tail: Node<T> = null;
-    
+
     // private methods
     /**
      * Method:
@@ -29,9 +29,9 @@ export class LinkedList<T> {
      * returns void
      */
     private appendToEnd = (node: Node<T>): void => {
-        if (this.slength() == 1) {
+        if (this.slength() === 1) {
             this.head.next = node
-        }else{
+        } else {
             this.tail.next = node
         }
         this.tail = node
@@ -43,17 +43,23 @@ export class LinkedList<T> {
      */
     private slength = (): number => {
         let count: number = 0;
-        let node: Node<T> = this.head
-        while(node){
-            count++
-            node = node.next
-        }
+        this.iterateOver(_ => count++)
         return count
     }
 
-    // Getters
+    /**
+     * A Generic iterator function which loops over each el in collection
+     */
+    private iterateOver = (callback: any, node: Node<T> = this.head): void => {
+        if (!node) {
+            return
+        }
+        callback(node.value)
+        this.iterateOver(callback, node.next)
+    }
 
-    get length(){
+    // Getters
+    get length() {
         return this.slength()
     }
 
@@ -61,11 +67,11 @@ export class LinkedList<T> {
      * Method:
      * returns true if collection is empty
      */
-    public isEmpty = (): boolean => !this.head 
+    public isEmpty = (): boolean => !this.head
 
     /**
      * Method:
-     * parameters: 
+     * parameters:
      * value(T) => type of unit of collection
      * return a Node with the given value
      */
@@ -76,10 +82,10 @@ export class LinkedList<T> {
         }
     }
 
-        /**
+    /**
      * Method:
      * Appends the value to the end of the collection
-     * parameters: 
+     * parameters:
      * value(T) => type of unit of collection
      * return a LinkedList collection of the items
      */

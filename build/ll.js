@@ -21,7 +21,7 @@ var LinkedList = /** @class */ (function () {
          * returns void
          */
         this.appendToEnd = function (node) {
-            if (_this.slength() == 1) {
+            if (_this.slength() === 1) {
                 _this.head.next = node;
             }
             else {
@@ -35,12 +35,19 @@ var LinkedList = /** @class */ (function () {
          */
         this.slength = function () {
             var count = 0;
-            var node = _this.head;
-            while (node) {
-                count++;
-                node = node.next;
-            }
+            _this.iterateOver(function (_) { return count++; });
             return count;
+        };
+        /**
+         * A Generic iterator function which loops over each el in collection
+         */
+        this.iterateOver = function (callback, node) {
+            if (node === void 0) { node = _this.head; }
+            if (!node) {
+                return;
+            }
+            callback(node.value);
+            _this.iterateOver(callback, node.next);
         };
         /**
          * Method:
@@ -60,12 +67,12 @@ var LinkedList = /** @class */ (function () {
             };
         };
         /**
-     * Method:
-     * Appends the value to the end of the collection
-     * parameters:
-     * value(T) => type of unit of collection
-     * return a LinkedList collection of the items
-     */
+         * Method:
+         * Appends the value to the end of the collection
+         * parameters:
+         * value(T) => type of unit of collection
+         * return a LinkedList collection of the items
+         */
         this.append = function (value) {
             var node = _this.summonNode(value);
             if (_this.isEmpty()) {
