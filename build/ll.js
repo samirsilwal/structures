@@ -133,17 +133,29 @@ var LinkedList = /** @class */ (function () {
         };
         /**
          * Method:
+         * non-recursive implementation
          * parameter:
          * list(LinkedList<T>): list needed to be appended to the end
          * returns the transformed or mapped collection of linkedList itself.
          */
-        this["+"] = function (list) {
+        this["++"] = function (list) {
             var node = list.head;
             while (node) {
                 _this.append(node.value);
                 node = node.next;
             }
             return _this;
+        };
+        /**
+        * Method:
+        * parameter:
+        * list(LinkedList<T>): list needed to be appended to the end
+        * returns the transformed or mapped collection of linkedList itself.
+        */
+        this["+"] = function (list) {
+            if (!list.tail)
+                return _this;
+            return _this.append(list.lhead)["++"](list.ltail);
         };
     }
     Object.defineProperty(LinkedList.prototype, "length", {

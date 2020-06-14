@@ -8,7 +8,6 @@ export type mapFunction<T, U> = (t: T) => U
 export type filterFunction<T> = (t: T) => boolean
 export type reduceFunction<T> = (t: T, acc: T) => T
 
-
 /**
  * Interface for a Node in LinkedList
  * value: a unit member of list
@@ -73,7 +72,7 @@ export class LinkedList<T> {
      * returns the list of collection except the head unit
      */
     private getlTail = (node: Node<T> = this.head.next): LinkedList<T> => {
-        let temp: LinkedList<T> = new LinkedList<T>()
+        const temp: LinkedList<T> = new LinkedList<T>()
         while (node) {
             temp.append(node.value)
             node = node.next
@@ -93,7 +92,6 @@ export class LinkedList<T> {
     get ltail() {
         return this.getlTail()
     }
-
 
     /**
      * Method:
@@ -171,11 +169,12 @@ export class LinkedList<T> {
 
     /**
      * Method:
+     * non-recursive implementation
      * parameter:
      * list(LinkedList<T>): list needed to be appended to the end
      * returns the transformed or mapped collection of linkedList itself.
      */
-    public "+" = (list: LinkedList<T>): LinkedList<T> => {
+    public "++" = (list: LinkedList<T>): LinkedList<T> => {
         let node: Node<T> = list.head
         while (node) {
             this.append(node.value)
@@ -184,6 +183,16 @@ export class LinkedList<T> {
         return this
     }
 
+     /**
+     * Method:
+     * parameter:
+     * list(LinkedList<T>): list needed to be appended to the end
+     * returns the transformed or mapped collection of linkedList itself.
+     */
+    public "+" = (list: LinkedList<T>): LinkedList<T> => {
+        if (!list.tail) return this
+        return this.append(list.lhead)["++"](list.ltail)
+    }
     /**
      * Method:
      * Non functional implementation of map
@@ -192,7 +201,7 @@ export class LinkedList<T> {
      * returns the transformed or mapped collection of linkedList itself.
      */
     private testMap<U>(callback: mapFunction<T, U>, node: Node<T> = this.head): LinkedList<U> {
-        let temp: LinkedList<U> = new LinkedList<U>()
+        const temp: LinkedList<U> = new LinkedList<U>()
         while (node) {
             temp.append(callback(node.value))
             node = node.next
