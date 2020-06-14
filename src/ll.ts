@@ -2,6 +2,10 @@
  *  Module of LinkedList structure defination.
  */
 
+// Custom type definations
+
+export type mapFunction<T, U> = (t: T) => U
+
 /**
  * Interface for a Node in LinkedList
  * value: a unit member of list
@@ -62,9 +66,9 @@ export class LinkedList<T> {
      * A Generic iterator function which loops over each el in collection
      * and apaplies callback to them along the traverse.
      */
-    private iterateOver = (callback: any, node: Node<T> = this.head): LinkedList<T> => {
+    private iterateOver = (callback: any, node: Node<T> = this.head): void => {
         if (!node) {
-            return this
+            return 
         }
         callback(node.value)
         this.iterateOver(callback, node.next)
@@ -137,5 +141,22 @@ export class LinkedList<T> {
          arr.forEach(this.append);
          return this
     }
+
+    /**
+     * Method:
+     * parameter:
+     * feature: A call back method applied for each element of the collection.
+     * returns the transformed or mapped collection of linkedList itself.
+     */
+    public map<U>(callback: mapFunction<T, U>, node: Node<T> = this.head): LinkedList<U>{
+        let temp: LinkedList<U> = new LinkedList<U>()
+        while(node){
+            temp.append(callback(node.value))
+            node = node.next
+        }
+        return temp
+    }
+
+
 
 }

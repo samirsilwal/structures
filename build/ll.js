@@ -50,7 +50,7 @@ var LinkedList = /** @class */ (function () {
         this.iterateOver = function (callback, node) {
             if (node === void 0) { node = _this.head; }
             if (!node) {
-                return _this;
+                return;
             }
             callback(node.value);
             _this.iterateOver(callback, node.next);
@@ -125,6 +125,21 @@ var LinkedList = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    /**
+     * Method:
+     * parameter:
+     * feature: A call back method applied for each element of the collection.
+     * returns the transformed or mapped collection of linkedList itself.
+     */
+    LinkedList.prototype.map = function (callback, node) {
+        if (node === void 0) { node = this.head; }
+        var temp = new LinkedList();
+        while (node) {
+            temp.append(callback(node.value));
+            node = node.next;
+        }
+        return temp;
+    };
     return LinkedList;
 }());
 exports.LinkedList = LinkedList;
