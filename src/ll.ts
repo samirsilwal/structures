@@ -5,6 +5,7 @@
 // Custom type definations
 
 export type mapFunction<T, U> = (t: T) => U
+export type filterFunction<T> = (t: T) => boolean
 
 /**
  * Interface for a Node in LinkedList
@@ -51,17 +52,6 @@ export class LinkedList<T> {
         return count
     }
 
-    // Getters
-    get length() {
-        return this.slength()
-    }
-
-    /**
-     * Method:
-     * returns true if collection is empty
-     */
-    public isEmpty = (): boolean => !this.head
-
     /**
      * A Generic iterator function which loops over each el in collection
      * and apaplies callback to them along the traverse.
@@ -73,6 +63,41 @@ export class LinkedList<T> {
         callback(node.value)
         this.iterateOver(callback, node.next)
     }
+
+    /**
+     * Method
+     * parameter:
+     * node(Node<T>): node of the collection
+     * returns the list of collection except the head unit
+     */
+    private getlTail = (node: Node<T> = this.head.next): LinkedList<T> => {
+        let temp: LinkedList<T> = new LinkedList<T>()
+        while(node){
+            temp.append(node.value)
+            node = node.next
+        }
+        return temp
+    }
+
+    // Getters
+    get length() {
+        return this.slength()
+    }
+
+    get lhead() {
+        return this.head.value
+    }
+
+    get ltail() {
+        return this.getlTail()
+    }
+
+
+    /**
+     * Method:
+     * returns true if collection is empty
+     */
+    public isEmpty = (): boolean => !this.head
 
     /**
      * Method:
@@ -157,6 +182,27 @@ export class LinkedList<T> {
         return temp
     }
 
+    // TODO: implement filter and reduce.....
+    // make these methods functional
+
+    public testmap<U>(callback: mapFunction<T, U>, node: Node<T> = this.head): LinkedList<U>{
+        let temp: LinkedList<U> = new LinkedList<U>()
+        while(node){
+            temp.append(callback(node.value))
+            node = node.next
+        }
+        return temp
+    }
+
+    public "+++" = (list: LinkedList<T>): LinkedList<T> => {
+        let node: Node<T> = list.head
+        while(node) {
+            this.append(node.value)
+            node = node.next
+        }
+        return this
+    } 
 
 
+    
 }

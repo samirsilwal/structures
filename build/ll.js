@@ -39,11 +39,6 @@ var LinkedList = /** @class */ (function () {
             return count;
         };
         /**
-         * Method:
-         * returns true if collection is empty
-         */
-        this.isEmpty = function () { return !_this.head; };
-        /**
          * A Generic iterator function which loops over each el in collection
          * and apaplies callback to them along the traverse.
          */
@@ -55,6 +50,26 @@ var LinkedList = /** @class */ (function () {
             callback(node.value);
             _this.iterateOver(callback, node.next);
         };
+        /**
+         * Method
+         * parameter:
+         * node(Node<T>): node of the collection
+         * returns the list of collection except the head unit
+         */
+        this.getlTail = function (node) {
+            if (node === void 0) { node = _this.head.next; }
+            var temp = new LinkedList();
+            while (node) {
+                temp.append(node.value);
+                node = node.next;
+            }
+            return temp;
+        };
+        /**
+         * Method:
+         * returns true if collection is empty
+         */
+        this.isEmpty = function () { return !_this.head; };
         /**
          * Method:
          * parameters:
@@ -116,11 +131,33 @@ var LinkedList = /** @class */ (function () {
             arr.forEach(_this.append);
             return _this;
         };
+        this["+++"] = function (list) {
+            var node = list.head;
+            while (node) {
+                _this.append(node.value);
+                node = node.next;
+            }
+            return _this;
+        };
     }
     Object.defineProperty(LinkedList.prototype, "length", {
         // Getters
         get: function () {
             return this.slength();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(LinkedList.prototype, "lhead", {
+        get: function () {
+            return this.head.value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(LinkedList.prototype, "ltail", {
+        get: function () {
+            return this.getlTail();
         },
         enumerable: true,
         configurable: true
@@ -132,6 +169,17 @@ var LinkedList = /** @class */ (function () {
      * returns the transformed or mapped collection of linkedList itself.
      */
     LinkedList.prototype.map = function (callback, node) {
+        if (node === void 0) { node = this.head; }
+        var temp = new LinkedList();
+        while (node) {
+            temp.append(callback(node.value));
+            node = node.next;
+        }
+        return temp;
+    };
+    // TODO: implement filter and reduce.....
+    // make these methods functional
+    LinkedList.prototype.testmap = function (callback, node) {
         if (node === void 0) { node = this.head; }
         var temp = new LinkedList();
         while (node) {

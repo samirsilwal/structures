@@ -9,7 +9,9 @@ mylist.append(3)
 
 console.log(mylist.length)
 
-const mylist1 = new LinkedList<number>().fromArray([4,9,10,1])
+const mylist1 = new LinkedList<number>()
 
 
-console.log(mylist1)
+
+console.log(mylist["+++"](mylist1).toString())
+
