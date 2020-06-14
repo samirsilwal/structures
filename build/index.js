@@ -12,4 +12,7 @@ console.log(mylist1.lhead);
 console.log(mylist1.ltail.toString());
 var temp = new ll_1.LinkedList();
 console.log(temp.append(mylist1.lhead)["+"](mylist1.ltail).toString());
+console.log("test map");
 console.log(mylist1.map(function (x) { return x + 10; }).toString());
+console.log("test filter");
+console.log(mylist1.filter(function (x) { return x % 2 === 0; }).toString());
