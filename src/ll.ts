@@ -4,6 +4,7 @@
 
 // Custom type definations
 
+export type foreachFucntion<T> = (t: T) => T
 export type mapFunction<T, U> = (t: T) => U
 export type filterFunction<T> = (t: T) => boolean
 export type reduceFunction<T> = (t: T, acc: T) => T
@@ -56,6 +57,8 @@ export class LinkedList<T> {
     /**
      * A Generic iterator function which loops over each el in collection
      * and apaplies callback to them along the traverse.
+     * 
+     * Able to perform sideeffects
      */
     private iterateOver = (callback: any, node: Node<T> = this.head): void => {
         if (!node) {
@@ -169,12 +172,24 @@ export class LinkedList<T> {
 
     /**
      * Method:
+     * converts Array to LinkedList collection.
+     * parameter:
+     * arr(Array<T>): Array of unit type T.
+     */
+    public toArray = (): T[] => {
+        let temp: T[] = [];
+        this.iterateOver(_ => temp.push(_))
+        return temp
+    }
+
+    /**
+     * Method:
      * non-recursive implementation
      * parameter:
      * list(LinkedList<T>): list needed to be appended to the end
      * returns the transformed or mapped collection of linkedList itself.
      */
-    public "++" = (list: LinkedList<T>): LinkedList<T> => {
+    private "++" = (list: LinkedList<T>): LinkedList<T> => {
         let node: Node<T> = list.head
         while (node) {
             this.append(node.value)
@@ -183,12 +198,12 @@ export class LinkedList<T> {
         return this
     }
 
-     /**
-     * Method:
-     * parameter:
-     * list(LinkedList<T>): list needed to be appended to the end
-     * returns the transformed or mapped collection of linkedList itself.
-     */
+    /**
+    * Method:
+    * parameter:
+    * list(LinkedList<T>): list needed to be appended to the end
+    * returns the transformed or mapped collection of linkedList itself.
+    */
     public "+" = (list: LinkedList<T>): LinkedList<T> => {
         if (!list.tail) return this
         return this.append(list.lhead)["++"](list.ltail)
@@ -245,6 +260,29 @@ export class LinkedList<T> {
     public reduce(callback: reduceFunction<T>, acc: T = null): T {
         if (!this.tail) return acc;
         return this.ltail.reduce(callback, callback(this.lhead, acc))
+    }
+
+    /**
+     * Method:
+     * converts Array to LinkedList collection.
+     * parameter:
+     * arr(Array<T>): Array of unit type T.
+     */
+    public foreach = (callback: foreachFucntion<T>, acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T> => {
+        if (!this.tail) return acc
+        return this.ltail.foreach(callback, acc["+"](new LinkedList<T>().append(callback(this.lhead))))
+    }
+
+    /**
+     * Method:
+     * converts Array to LinkedList collection.
+     * parameter:
+     * arr(Array<T>): Array of unit type T.
+     */
+    public mforeach = (callback: foreachFucntion<T>, node: Node<T> = this.head): void => {
+        if (!node) return
+        node.value = callback(node.value)
+        this.mforeach(callback, node.next)
     }
 
 }

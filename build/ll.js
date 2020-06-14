@@ -41,6 +41,8 @@ var LinkedList = /** @class */ (function () {
         /**
          * A Generic iterator function which loops over each el in collection
          * and apaplies callback to them along the traverse.
+         *
+         * Able to perform sideeffects
          */
         this.iterateOver = function (callback, node) {
             if (node === void 0) { node = _this.head; }
@@ -133,6 +135,17 @@ var LinkedList = /** @class */ (function () {
         };
         /**
          * Method:
+         * converts Array to LinkedList collection.
+         * parameter:
+         * arr(Array<T>): Array of unit type T.
+         */
+        this.toArray = function () {
+            var temp = [];
+            _this.iterateOver(function (_) { return temp.push(_); });
+            return temp;
+        };
+        /**
+         * Method:
          * non-recursive implementation
          * parameter:
          * list(LinkedList<T>): list needed to be appended to the end
@@ -156,6 +169,31 @@ var LinkedList = /** @class */ (function () {
             if (!list.tail)
                 return _this;
             return _this.append(list.lhead)["++"](list.ltail);
+        };
+        /**
+         * Method:
+         * converts Array to LinkedList collection.
+         * parameter:
+         * arr(Array<T>): Array of unit type T.
+         */
+        this.foreach = function (callback, acc) {
+            if (acc === void 0) { acc = new LinkedList(); }
+            if (!_this.tail)
+                return acc;
+            return _this.ltail.foreach(callback, acc["+"](new LinkedList().append(callback(_this.lhead))));
+        };
+        /**
+         * Method:
+         * converts Array to LinkedList collection.
+         * parameter:
+         * arr(Array<T>): Array of unit type T.
+         */
+        this.mforeach = function (callback, node) {
+            if (node === void 0) { node = _this.head; }
+            if (!node)
+                return;
+            node.value = callback(node.value);
+            _this.mforeach(callback, node.next);
         };
     }
     Object.defineProperty(LinkedList.prototype, "length", {
