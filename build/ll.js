@@ -131,8 +131,12 @@ var LinkedList = /** @class */ (function () {
             arr.forEach(_this.append);
             return _this;
         };
-        // TODO: implement filter and reduce.....
-        // make these methods functional
+        /**
+         * Method:
+         * parameter:
+         * list(LinkedList<T>): list needed to be appended to the end
+         * returns the transformed or mapped collection of linkedList itself.
+         */
         this["+"] = function (list) {
             var node = list.head;
             while (node) {
@@ -166,11 +170,12 @@ var LinkedList = /** @class */ (function () {
     });
     /**
      * Method:
+     * Non functional implementation of map
      * parameter:
      * feature: A call back method applied for each element of the collection.
      * returns the transformed or mapped collection of linkedList itself.
      */
-    LinkedList.prototype.testmap = function (callback, node) {
+    LinkedList.prototype.testMap = function (callback, node) {
         if (node === void 0) { node = this.head; }
         var temp = new LinkedList();
         while (node) {
@@ -179,20 +184,20 @@ var LinkedList = /** @class */ (function () {
         }
         return temp;
     };
+    // TODO: implement filter and reduce.....
+    // make these methods functional
     /**
- * Method:
- * parameter:
- * feature: A call back method applied for each element of the collection.
- * returns the transformed or mapped collection of linkedList itself.
- */
-    LinkedList.prototype.map = function (callback, node) {
-        if (node === void 0) { node = this.head; }
-        var temp = new LinkedList();
-        while (node) {
-            temp.append(callback(node.value));
-            node = node.next;
+     * Method:
+     * parameter:
+     * feature: A call back method applied for each element of the collection.
+     * returns the transformed or mapped collection of linkedList itself.
+     */
+    LinkedList.prototype.map = function (callback, acc) {
+        if (acc === void 0) { acc = new LinkedList(); }
+        if (!this.tail) {
+            return acc;
         }
-        return temp;
+        return this.ltail.map(callback, acc["+"](new LinkedList().append(callback(this.lhead))));
     };
     return LinkedList;
 }());

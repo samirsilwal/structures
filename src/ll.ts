@@ -169,26 +169,12 @@ export class LinkedList<T> {
 
     /**
      * Method:
+     * Non functional implementation of map
      * parameter:
      * feature: A call back method applied for each element of the collection.
      * returns the transformed or mapped collection of linkedList itself.
      */
-    private testmap<U>(callback: mapFunction<T, U>, node: Node<T> = this.head): LinkedList<U>{
-        let temp: LinkedList<U> = new LinkedList<U>()
-        while(node){
-            temp.append(callback(node.value))
-            node = node.next
-        }
-        return temp
-    }
-
-        /**
-     * Method:
-     * parameter:
-     * feature: A call back method applied for each element of the collection.
-     * returns the transformed or mapped collection of linkedList itself.
-     */
-    public map<U>(callback: mapFunction<T, U>, node: Node<T> = this.head): LinkedList<U>{
+    private testMap<U>(callback: mapFunction<T, U>, node: Node<T> = this.head): LinkedList<U>{
         let temp: LinkedList<U> = new LinkedList<U>()
         while(node){
             temp.append(callback(node.value))
@@ -200,8 +186,25 @@ export class LinkedList<T> {
     // TODO: implement filter and reduce.....
     // make these methods functional
 
+    /**
+     * Method:
+     * parameter:
+     * feature: A call back method applied for each element of the collection.
+     * returns the transformed or mapped collection of linkedList itself.
+     */
+    public map<U>(callback: mapFunction<T, U>, acc: LinkedList<U> = new LinkedList<U>()): LinkedList<U>{
+        if (!this.tail){
+            return acc
+        }
+        return this.ltail.map(callback, acc["+"](new LinkedList<U>().append(callback(this.lhead))))
+    }
 
-
+    /**
+     * Method:
+     * parameter:
+     * list(LinkedList<T>): list needed to be appended to the end
+     * returns the transformed or mapped collection of linkedList itself.
+     */
     public "+" = (list: LinkedList<T>): LinkedList<T> => {
         let node: Node<T> = list.head
         while(node) {
