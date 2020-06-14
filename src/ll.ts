@@ -28,7 +28,6 @@ export class LinkedList<T> {
     private tail: Node<T> = null;
     private EMPTY_NODE: Node<T> = { value: null, next: null }
 
-
     // private methods
     /**
      * Method:
@@ -59,7 +58,7 @@ export class LinkedList<T> {
     /**
      * A Generic iterator function which loops over each el in collection
      * and apaplies callback to them along the traverse.
-     * 
+     *
      * Able to perform sideeffects
      */
     private iterateOver = (callback: any, node: Node<T> = this.head): void => {
@@ -162,11 +161,11 @@ export class LinkedList<T> {
 
         let currentNode = this.head || this.EMPTY_NODE
 
-        while(currentNode.next){
+        while (currentNode.next) {
             if (currentNode.next.value === value) {
                 currentNode.next = currentNode.next.next
                 deleted = true
-            }else {
+            } else {
                 currentNode = currentNode.next
             }
         }
@@ -175,7 +174,7 @@ export class LinkedList<T> {
             this.tail = this.EMPTY_NODE
             deleted = true
         }
-        
+
         return deleted
     }
 
@@ -221,7 +220,7 @@ export class LinkedList<T> {
      * arr(Array<T>): Array of unit type T.
      */
     public toArray = (): T[] => {
-        let temp: T[] = [];
+        const temp: T[] = [];
         this.iterateOver(_ => temp.push(_))
         return temp
     }
@@ -243,11 +242,11 @@ export class LinkedList<T> {
     }
 
     /**
-    * Method:
-    * parameter:
-    * list(LinkedList<T>): list needed to be appended to the end
-    * returns the transformed or mapped collection of linkedList itself.
-    */
+     * Method:
+     * parameter:
+     * list(LinkedList<T>): list needed to be appended to the end
+     * returns the transformed or mapped collection of linkedList itself.
+     */
     public "+" = (list: LinkedList<T>): LinkedList<T> => {
         if (!list.tail) return this
         return this.append(list.lhead)["++"](list.ltail)
@@ -329,4 +328,25 @@ export class LinkedList<T> {
         this.mforeach(callback, node.next)
     }
 
+    /**
+     * Method:
+     * checks if collection contains the item
+     * parameter:
+     * value(T): find if value exist in the collection
+     * returns boolean as per result.
+     */
+    public contains = (value: T): boolean => {
+        return this.filter(_ => _ === value).length > 0 ? true : false
+    }
+
+    /**
+     * Method:
+     * returns the first item found as per predicate
+     * parameter:
+     * predicate: function to filter the collection
+     * returns value if found else null
+     */
+    public find = (predicate: filterFunction<T>): T => {
+        return this.filter(predicate).length > 0 ? this.lhead : null
+    }
 }

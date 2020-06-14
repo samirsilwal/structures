@@ -16,7 +16,7 @@ console.log(mylist1.map(function (x) { return x + 10 + " hello "; }).toString())
 console.log("test filter");
 console.log(mylist1.filter(function (x) { return x % 2 === 0; }).toString());
 console.log("test reduce");
-console.log(mylist1.reduce(function (a, acc) { return acc + a; }).toString());
+console.log(mylist1.reduce(function (_, acc) { return acc + _; }).toString());
 console.log("test ++");
 console.log(mylist1["++"](temp.fromArray([1, 2, 3])).toString());
 console.log("test foreach immutable");
@@ -34,3 +34,6 @@ console.log("test remove value");
 console.log(testlistm.remove(10).toString());
 console.log("test remove  mutable");
 console.log(testlistm.mRemove(10));
+console.log("test contains");
+console.log(testlistm.contains(20));
+console.log(testlistm.contains(0));

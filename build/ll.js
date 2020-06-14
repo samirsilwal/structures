@@ -198,11 +198,11 @@ var LinkedList = /** @class */ (function () {
             return _this;
         };
         /**
-        * Method:
-        * parameter:
-        * list(LinkedList<T>): list needed to be appended to the end
-        * returns the transformed or mapped collection of linkedList itself.
-        */
+         * Method:
+         * parameter:
+         * list(LinkedList<T>): list needed to be appended to the end
+         * returns the transformed or mapped collection of linkedList itself.
+         */
         this["+"] = function (list) {
             if (!list.tail)
                 return _this;
@@ -232,6 +232,26 @@ var LinkedList = /** @class */ (function () {
                 return;
             node.value = callback(node.value);
             _this.mforeach(callback, node.next);
+        };
+        /**
+         * Method:
+         * checks if collection contains the item
+         * parameter:
+         * value(T): find if value exist in the collection
+         * returns boolean as per result.
+         */
+        this.contains = function (value) {
+            return _this.filter(function (_) { return _ === value; }).length > 0 ? true : false;
+        };
+        /**
+         * Method:
+         * returns the first item found as per predicate
+         * parameter:
+         * predicate: function to filter the collection
+         * returns value if found else null
+         */
+        this.find = function (predicate) {
+            return _this.filter(predicate).length > 0 ? _this.lhead : null;
         };
     }
     Object.defineProperty(LinkedList.prototype, "length", {
