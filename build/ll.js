@@ -131,7 +131,9 @@ var LinkedList = /** @class */ (function () {
             arr.forEach(_this.append);
             return _this;
         };
-        this["+++"] = function (list) {
+        // TODO: implement filter and reduce.....
+        // make these methods functional
+        this["+"] = function (list) {
             var node = list.head;
             while (node) {
                 _this.append(node.value);
@@ -168,7 +170,7 @@ var LinkedList = /** @class */ (function () {
      * feature: A call back method applied for each element of the collection.
      * returns the transformed or mapped collection of linkedList itself.
      */
-    LinkedList.prototype.map = function (callback, node) {
+    LinkedList.prototype.testmap = function (callback, node) {
         if (node === void 0) { node = this.head; }
         var temp = new LinkedList();
         while (node) {
@@ -177,9 +179,13 @@ var LinkedList = /** @class */ (function () {
         }
         return temp;
     };
-    // TODO: implement filter and reduce.....
-    // make these methods functional
-    LinkedList.prototype.testmap = function (callback, node) {
+    /**
+ * Method:
+ * parameter:
+ * feature: A call back method applied for each element of the collection.
+ * returns the transformed or mapped collection of linkedList itself.
+ */
+    LinkedList.prototype.map = function (callback, node) {
         if (node === void 0) { node = this.head; }
         var temp = new LinkedList();
         while (node) {

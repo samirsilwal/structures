@@ -173,6 +173,21 @@ export class LinkedList<T> {
      * feature: A call back method applied for each element of the collection.
      * returns the transformed or mapped collection of linkedList itself.
      */
+    private testmap<U>(callback: mapFunction<T, U>, node: Node<T> = this.head): LinkedList<U>{
+        let temp: LinkedList<U> = new LinkedList<U>()
+        while(node){
+            temp.append(callback(node.value))
+            node = node.next
+        }
+        return temp
+    }
+
+        /**
+     * Method:
+     * parameter:
+     * feature: A call back method applied for each element of the collection.
+     * returns the transformed or mapped collection of linkedList itself.
+     */
     public map<U>(callback: mapFunction<T, U>, node: Node<T> = this.head): LinkedList<U>{
         let temp: LinkedList<U> = new LinkedList<U>()
         while(node){
@@ -185,16 +200,9 @@ export class LinkedList<T> {
     // TODO: implement filter and reduce.....
     // make these methods functional
 
-    public testmap<U>(callback: mapFunction<T, U>, node: Node<T> = this.head): LinkedList<U>{
-        let temp: LinkedList<U> = new LinkedList<U>()
-        while(node){
-            temp.append(callback(node.value))
-            node = node.next
-        }
-        return temp
-    }
 
-    public "+++" = (list: LinkedList<T>): LinkedList<T> => {
+
+    public "+" = (list: LinkedList<T>): LinkedList<T> => {
         let node: Node<T> = list.head
         while(node) {
             this.append(node.value)
@@ -204,5 +212,4 @@ export class LinkedList<T> {
     } 
 
 
-    
 }
