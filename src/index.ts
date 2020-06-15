@@ -90,4 +90,10 @@ console.log(ss.pile(s).toString)
 console.log(ss.unPile(1).toString)
 console.log(ss.unPile(1).toString)
 console.log(ss.size)
-console.log(ss)
+console.log(ss.map(x => x + 12))
+
+console.log(new LinkedList<number>().fromArray([1,2,3,4, 5, 10, 89]).reverse())
+
+let y = new Stack<number>().fromLinkedList(new LinkedList<number>().fromArray([1,2,3,4]))
+console.log(y)
+console.log(y.reverse())

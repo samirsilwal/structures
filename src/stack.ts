@@ -2,7 +2,7 @@
  *  Module of Stack structure defination.
  */
 
-import { LinkedList } from "./ll";
+import { LinkedList, mapFunction } from "./ll";
 import * as util from "util";
 
 /**
@@ -10,11 +10,12 @@ import * as util from "util";
  */
 export class Stack<T> {
     // properties
-    private stack: LinkedList<T> = null;
+    private stack: LinkedList<T> = new LinkedList<T>();
 
     //constructor
-    constructor() {
-        this.stack = new LinkedList<T>()
+    // Fix me later
+    constructor(obj: any = null) {
+        obj && Object.assign(this, obj)
     }
 
     //getters
@@ -51,6 +52,7 @@ export class Stack<T> {
     [util.inspect.custom](depth, opts) {
         return this.toString
     }
+    // private methods
 
     //methods
 
@@ -94,5 +96,32 @@ export class Stack<T> {
         if (n == 0) return this
         this.stack = this.stack.ltail
         return this.unPile(n - 1)
+    }
+
+    /**
+     * Converts the LinkedList collection to stack.
+     * @param list Linkedlist of elements.
+     * @returns a stack of the elements
+     */
+    public fromLinkedList = (list: LinkedList<T>): Stack<T> => {
+        this.push(list.lbottom)
+        if (!list.ltop.length) return this
+        return this.fromLinkedList(list.ltop)
+    }
+
+    /**
+     * Maps the Stack from one type dodmain to other.
+     * @param callback callback applied to each el in stack to form another
+     * @returns a transformed Stack collection.
+     */
+    public map<U>(callback: mapFunction<T, U>): Stack<U> {
+        return new Stack<U>().fromLinkedList(this.stack.map(callback))
+    }
+
+    /**
+     * @returns a stack of el in reverse order.
+     */
+    public reverse = (): Stack<T> => {
+        return new Stack<T>().fromLinkedList(this.stack.reverse())
     }
 }

@@ -429,4 +429,14 @@ export class LinkedList<T> {
         if (!this.tail) return acc
         return this.ltail.flatmap(callback, acc["+"](callback(this.lhead)))
     }
+
+    /**
+     * @acc accumulates the reversed collection
+     * @returns a linlkedlist of values in reverse order.
+     */
+    public reverse = (acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T> => {
+        acc["+"](new LinkedList<T>().append(this.lbottom))
+        if (!this.ltop.length) return acc
+        return this.ltop.reverse(acc)
+    }
 }

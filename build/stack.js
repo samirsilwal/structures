@@ -17,10 +17,13 @@ var util = __importStar(require("util"));
  */
 var Stack = /** @class */ (function () {
     //constructor
-    function Stack() {
+    // Fix me later
+    function Stack(obj) {
+        if (obj === void 0) { obj = null; }
         var _this = this;
         // properties
-        this.stack = null;
+        this.stack = new ll_1.LinkedList();
+        // private methods
         //methods
         /**
          * Add value at top of the stack.
@@ -62,7 +65,24 @@ var Stack = /** @class */ (function () {
             _this.stack = _this.stack.ltail;
             return _this.unPile(n - 1);
         };
-        this.stack = new ll_1.LinkedList();
+        /**
+         * Converts the LinkedList collection to stack.
+         * @param list Linkedlist of elements.
+         * @returns a stack of the elements
+         */
+        this.fromLinkedList = function (list) {
+            _this.push(list.lbottom);
+            if (!list.ltop.length)
+                return _this;
+            return _this.fromLinkedList(list.ltop);
+        };
+        /**
+         * @returns a stack of el in reverse order.
+         */
+        this.reverse = function () {
+            return new Stack().fromLinkedList(_this.stack.reverse());
+        };
+        obj && Object.assign(this, obj);
     }
     Object.defineProperty(Stack.prototype, "toString", {
         //getters
@@ -108,6 +128,14 @@ var Stack = /** @class */ (function () {
     // console log print
     Stack.prototype[util.inspect.custom] = function (depth, opts) {
         return this.toString;
+    };
+    /**
+     * Maps the Stack from one type dodmain to other.
+     * @param callback callback applied to each el in stack to form another
+     * @returns a transformed Stack collection.
+     */
+    Stack.prototype.map = function (callback) {
+        return new Stack().fromLinkedList(this.stack.map(callback));
     };
     return Stack;
 }());

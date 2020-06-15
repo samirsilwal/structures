@@ -295,6 +295,17 @@ var LinkedList = /** @class */ (function () {
                 return acc;
             return _this.ltail.flatten(acc["+"](new LinkedList(_this.lhead)));
         };
+        /**
+         * @acc accumulates the reversed collection
+         * @returns a linlkedlist of values in reverse order.
+         */
+        this.reverse = function (acc) {
+            if (acc === void 0) { acc = new LinkedList(); }
+            acc["+"](new LinkedList().append(_this.lbottom));
+            if (!_this.ltop.length)
+                return acc;
+            return _this.ltop.reverse(acc);
+        };
         obj && Object.assign(this, obj);
     }
     Object.defineProperty(LinkedList.prototype, "length", {
