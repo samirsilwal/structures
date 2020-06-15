@@ -29,14 +29,14 @@ console.log(mylist1.reduce((_, acc) => acc + _).toString())
 console.log("test ++")
 console.log(mylist1["++"](temp.fromArray([1, 2, 3])).toString())
 
-console.log("test foreach immutable")
-const testlist = new LinkedList<number>().fromArray([1, 2, 3, 4])
-const t = testlist.foreach(x => x * 5).toString()
-console.log(t)
-
 console.log("test foreach mutable")
+const testlist = new LinkedList<number>().fromArray([1, 2, 3, 4])
+testlist.foreach(x => x * 5)
+console.log(testlist)
+
+console.log("test foreach immutable")
 const testlistm = new LinkedList<number>().fromArray([1, 2, 3, 4])
-testlistm.mforeach(x => x * 5)
+testlistm.mForeach(x => x * 5)
 console.log(testlistm.toString())
 
 console.log("test toarray")
@@ -99,3 +99,6 @@ console.log(y)
 console.log(y.reverse())
 
 console.log(new Stack<number>().fromArray([1,2,3]))
+
+let my = new LinkedList<number>().fromArray([12,11,45,78,10])
+

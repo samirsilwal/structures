@@ -5,7 +5,8 @@ import * as util from "util";
 
 // Custom type definations
 
-export type foreachFucntion<T> = (t: T) => T
+export type foreachFucntion<T> = (t: T) => void
+export type mForeachFucntion<T> = (t: T) => any
 export type mapFunction<T, U> = (t: T) => U
 export type filterFunction<T> = (t: T) => boolean
 export type reduceFunction<T> = (t: T, acc: T) => T
@@ -370,25 +371,22 @@ export class LinkedList<T> {
 
     /**
      * Applies the callback to each el in the collection
-     * @param arr (Array<T>): Array of unit type T.
+     * @param callback A callback applied on each el of list.
      * @param acc accumulator defaults to empty linkedlist.
      * @returns the collection applied to callback for each el. 
      */
-    public foreach = (callback: foreachFucntion<T>, acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T> => {
+    public mForeach = (callback: mForeachFucntion<T>, acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T> => {
         if (!this.tail) return acc
-        return this.ltail.foreach(callback, acc["+"](new LinkedList<T>().append(callback(this.lhead))))
+        return this.ltail.mForeach(callback, acc["+"](new LinkedList<T>().append(callback(this.lhead))))
     }
 
     /**
-     * Converts Array to LinkedList collection.:
-     * @param arr (Array<T>): Array of unit type T.
-     * @param node Defaults to head of collection.
-     * @returns the mutated collection.
+     * Applies the callback to each el in the collection
+     * @param callback (Array<T>): Array of unit type T.
+     * @returns the collection applied to callback for each el. 
      */
-    public mforeach = (callback: foreachFucntion<T>, node: Node<T> = this.head): void => {
-        if (!node) return
-        node.value = callback(node.value)
-        this.mforeach(callback, node.next)
+    public foreach = (callback: foreachFucntion<T>): void => {
+        this.iterateOver(i => callback(i))
     }
 
     /**
