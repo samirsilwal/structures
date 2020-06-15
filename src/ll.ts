@@ -35,22 +35,38 @@ export class LinkedList<T> {
     }
 
     // Getters
+
+    /**
+     * @returns the length of the collection.
+     */
     get length() {
         return this.slength()
     }
 
+    /**
+     * @returns the tail value of the collection.
+     */
     get lbottom() {
         return this.tail.value
     }
 
+    /**
+     * @returns the collection with all elements except the last.
+     */
     get ltop() {
         return this.getlTop()
     }
 
+    /**
+     * @returns the first value of the element.
+     */
     get lhead() {
         return this.head.value
     }
 
+    /**
+     * @returns the collection with all elements except the first.
+     */
     get ltail() {
         return this.getlTail()
     }

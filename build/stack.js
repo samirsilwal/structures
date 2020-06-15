@@ -66,6 +66,9 @@ var Stack = /** @class */ (function () {
     }
     Object.defineProperty(Stack.prototype, "toString", {
         //getters
+        /**
+         * @returns the string form of stack.
+         */
         get: function () {
             return this.stack.toString();
         },
@@ -73,6 +76,9 @@ var Stack = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(Stack.prototype, "size", {
+        /**
+         * @returns the length/size of the stack.
+         */
         get: function () {
             return this.stack.length;
         },
@@ -80,6 +86,9 @@ var Stack = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(Stack.prototype, "isEmpty", {
+        /**
+         * @returns true if cstack is empty.
+         */
         get: function () {
             return this.stack.isEmpty();
         },
@@ -87,15 +96,11 @@ var Stack = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(Stack.prototype, "top", {
+        /**
+         * @returns the top element from stack.
+         */
         get: function () {
             return this.stack.lhead;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Stack.prototype, "bottom", {
-        get: function () {
-            return this.stack.lbottom;
         },
         enumerable: true,
         configurable: true

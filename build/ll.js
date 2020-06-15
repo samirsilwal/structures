@@ -299,6 +299,9 @@ var LinkedList = /** @class */ (function () {
     }
     Object.defineProperty(LinkedList.prototype, "length", {
         // Getters
+        /**
+         * @returns the length of the collection.
+         */
         get: function () {
             return this.slength();
         },
@@ -306,6 +309,9 @@ var LinkedList = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(LinkedList.prototype, "lbottom", {
+        /**
+         * @returns the tail value of the collection.
+         */
         get: function () {
             return this.tail.value;
         },
@@ -313,6 +319,9 @@ var LinkedList = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(LinkedList.prototype, "ltop", {
+        /**
+         * @returns the collection with all elements except the last.
+         */
         get: function () {
             return this.getlTop();
         },
@@ -320,6 +329,9 @@ var LinkedList = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(LinkedList.prototype, "lhead", {
+        /**
+         * @returns the first value of the element.
+         */
         get: function () {
             return this.head.value;
         },
@@ -327,6 +339,9 @@ var LinkedList = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(LinkedList.prototype, "ltail", {
+        /**
+         * @returns the collection with all elements except the first.
+         */
         get: function () {
             return this.getlTail();
         },

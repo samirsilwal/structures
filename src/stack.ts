@@ -18,24 +18,33 @@ export class Stack<T> {
     }
 
     //getters
+
+    /**
+     * @returns the string form of stack.
+     */
     get toString() {
         return this.stack.toString()
     }
 
+    /**
+     * @returns the length/size of the stack.
+     */
     get size() {
         return this.stack.length
     }
 
+    /**
+     * @returns true if cstack is empty.
+     */
     get isEmpty() {
         return this.stack.isEmpty()
     }
 
+    /**
+     * @returns the top element from stack.
+     */
     get top() {
         return this.stack.lhead
-    }
-
-    get bottom() {
-        return this.stack.lbottom
     }
 
     // console log print
@@ -44,6 +53,7 @@ export class Stack<T> {
     }
 
     //methods
+
     /**
      * Add value at top of the stack.
      * @param value push element into the stack.
