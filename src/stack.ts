@@ -110,6 +110,23 @@ export class Stack<T> {
     }
 
     /**
+     * Converts the array collection to stack.
+     * @param arr array of elements.
+     * @returns a stack of the elements
+     */
+    public fromArray = (arr: Array<T>): Stack<T> => {
+        return new Stack<T>().fromLinkedList(this.stack.fromArray(arr))
+    }
+
+    /**
+     * Converts the stack collection to array.
+     * @returns a array of the elements
+     */
+    public toArray = (): T[] => {
+        return this.stack.toArray()
+    }
+
+    /**
      * Maps the Stack from one type dodmain to other.
      * @param callback callback applied to each el in stack to form another
      * @returns a transformed Stack collection.

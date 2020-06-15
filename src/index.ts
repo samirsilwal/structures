@@ -97,3 +97,5 @@ console.log(new LinkedList<number>().fromArray([1,2,3,4, 5, 10, 89]).reverse())
 let y = new Stack<number>().fromLinkedList(new LinkedList<number>().fromArray([1,2,3,4]))
 console.log(y)
 console.log(y.reverse())
+
+console.log(new Stack<number>().fromArray([1,2,3]))
