@@ -64,19 +64,19 @@ console.log(testing.lbottom)
 console.log("test flatmap")
 console.log(testing.flatmap(x => new LinkedList<string>().fromArray(x.split("")).map(y => y.toUpperCase())).toString())
 
-let objtest = new LinkedList<Array<any>>();
+const objtest = new LinkedList<object>();
 
-objtest.append([
-    "samir",
-     1
-])
-objtest.append([
-    "samir",
-     2
-])
+objtest.append({
+    name:"samir",
+    num:1
+})
+objtest.append({
+    name:"samir",
+    num:2
+})
 
 console.log(objtest.toString())
-console.log(typeof [
+console.log( [
     "samir",
-     1
-])
+    1
+ ] + "")

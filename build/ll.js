@@ -84,6 +84,14 @@ var LinkedList = /** @class */ (function () {
             }
             return temp;
         };
+        //utility for toSting method
+        this.parseObj = function (obj) {
+            return JSON.stringify(obj).split(",").map(function (item) {
+                var sp = item.split(":");
+                sp[0] = sp[0].replace(/"/g, "");
+                return sp.join(":");
+            }).join(",").replace(/:/g, ": ").replace(/,/g, ", ").replace(/{/g, "{ ").replace(/}/g, " }").replace(/"/g, "'");
+        };
         /**
          * Method:
          * returns true if collection is empty
@@ -173,7 +181,15 @@ var LinkedList = /** @class */ (function () {
         this.toString = function () {
             var temp = "[ ";
             _this.iterateOver(function (i) {
-                // if (typeof i ===  )
+                if (Object.prototype.toString.call(i) === '[object Object]' && !(i instanceof LinkedList)) {
+                    i = _this.parseObj(i);
+                }
+                if (Array.isArray(i)) {
+                    i = JSON.stringify(i);
+                }
+                if (i instanceof LinkedList) {
+                    i = i.toString();
+                }
                 temp = temp + i + " ";
             });
             return temp + "]";

@@ -48,16 +48,16 @@ console.log(testing.lbottom);
 console.log("test flatmap");
 console.log(testing.flatmap(function (x) { return new ll_1.LinkedList().fromArray(x.split("")).map(function (y) { return y.toUpperCase(); }); }).toString());
 var objtest = new ll_1.LinkedList();
-objtest.append([
-    "samir",
-    1
-]);
-objtest.append([
-    "samir",
-    2
-]);
+objtest.append({
+    name: "samir",
+    num: 1
+});
+objtest.append({
+    name: "samir",
+    num: 2
+});
 console.log(objtest.toString());
-console.log(typeof [
+console.log([
     "samir",
     1
-]);
+] + "");

@@ -124,6 +124,14 @@ export class LinkedList<T> {
         }
         return temp
     }
+    //utility for toSting method
+    private parseObj = (obj: object) => {
+        return JSON.stringify(obj).split(",").map(item => {
+                const sp = item.split(":")
+                sp[0] = sp[0].replace(/"/g, "")
+                return sp.join(":")
+        }).join(",").replace(/:/g, ": ").replace(/,/g, ", ").replace(/{/g, "{ ").replace(/}/g, " }").replace(/"/g, "'")
+    }
 
     /**
      * Method:
@@ -225,7 +233,15 @@ export class LinkedList<T> {
     public toString = (): string => {
         let temp = "[ "
         this.iterateOver(i => {
-            // if (typeof i ===  )
+            if (Object.prototype.toString.call(i) === '[object Object]' && !(i instanceof LinkedList)) {
+                i = this.parseObj(i)
+            }
+            if (Array.isArray(i)) {
+                i = JSON.stringify(i)
+            }
+            if (i instanceof LinkedList) {
+                i = i.toString()
+            }
             temp = temp + i + " "
         });
         return temp + "]";
@@ -381,7 +397,7 @@ export class LinkedList<T> {
 
     /**
      * Method:
-     * @param acc accumulator to flatten the given collection 
+     * @param acc accumulator to flatten the given collection
      * flatten a single depth of collection
      * returns a flatten linkedList of the elements
      */
