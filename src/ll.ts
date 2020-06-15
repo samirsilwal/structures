@@ -365,4 +365,16 @@ export class LinkedList<T> {
         if (!this.tail) return acc;
         return this.ltail.flatten(acc["+"](new LinkedList<T>(this.lhead)))
     }
+
+    /**
+     * Method:
+     * A monadic feature that maps and then flattens the collection.
+     * @param callback function executed for the elements in the collection
+     * @param acc oprtional parameter to accumulate the flatten collection.
+     * returns the flatten collection after being mapped
+     */
+    public flatmap<U>(callback: flatmapFunction<T, U>, acc: LinkedList<U> = new LinkedList<U>()): LinkedList<U>{
+        if(!this.tail) return acc
+        return this.ltail.flatmap(callback, acc["+"](callback(this.lhead)))
+    }
 }

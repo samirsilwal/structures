@@ -345,6 +345,19 @@ var LinkedList = /** @class */ (function () {
             return acc;
         return this.ltail.reduce(callback, callback(this.lhead, acc));
     };
+    /**
+     * Method:
+     * A monadic feature that maps and then flattens the collection.
+     * @param callback function executed for the elements in the collection
+     * @param acc oprtional parameter to accumulate the flatten collection.
+     * returns the flatten collection after being mapped
+     */
+    LinkedList.prototype.flatmap = function (callback, acc) {
+        if (acc === void 0) { acc = new LinkedList(); }
+        if (!this.tail)
+            return acc;
+        return this.ltail.flatmap(callback, acc["+"](callback(this.lhead)));
+    };
     return LinkedList;
 }());
 exports.LinkedList = LinkedList;

@@ -57,3 +57,7 @@ console.log(flattest.map(x => x.toUpperCase()).toString())
 const mylisttemp = flattest.map(x => new LinkedList<string>().fromArray(x.split("")).map(y => y.toUpperCase()))
 console.log(mylisttemp.toString())
 console.log(mylisttemp.flatten().toString())
+
+const testing = new LinkedList<string>().fromArray(["superman", "batman", "antman"])
+console.log("test flatmap")
+console.log(testing.flatmap(x => new LinkedList<string>().fromArray(x.split("")).map(y => y.toUpperCase())).toString())

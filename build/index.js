@@ -42,3 +42,6 @@ console.log(flattest.map(function (x) { return x.toUpperCase(); }).toString());
 var mylisttemp = flattest.map(function (x) { return new ll_1.LinkedList().fromArray(x.split("")).map(function (y) { return y.toUpperCase(); }); });
 console.log(mylisttemp.toString());
 console.log(mylisttemp.flatten().toString());
+var testing = new ll_1.LinkedList().fromArray(["superman", "batman", "antman"]);
+console.log("test flatmap");
+console.log(testing.flatmap(function (x) { return new ll_1.LinkedList().fromArray(x.split("")).map(function (y) { return y.toUpperCase(); }); }).toString());
