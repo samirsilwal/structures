@@ -50,4 +50,24 @@
          this.stack = this.stack.ltail
          return t
      }
+
+     /**
+      * Adds a pile of stack one on top of other.
+      * @param s Stack of type T to be piled on top
+      */
+     public pile = (s: Stack<T>): Stack<T> => {
+         this.stack = this.stack["+"](s.stack)
+         return this
+     }
+
+    /**
+      * Remove a pile of stack from top of stack.
+      * @param n number of element of stack to be removed.
+      */
+     public unPile = (n: number): Stack<T> => {
+        if (n > this.stack.length) return null
+        if (n == 0) return this
+        this.stack = this.stack.ltail
+        return this.unPile(n-1)
+    }
  }

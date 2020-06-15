@@ -1,14 +1,7 @@
 console.log("Initial setup");
 
 import { LinkedList } from ".//ll"
-import {Stack} from "./stack"
-
-const s = new Stack<number>()
-
-console.log(s.push(5).toString)
-console.log(s.push(10).toString)
-console.log(s.pop())
-console.log(s.toString)
+import { Stack } from "./stack"
 
 const mylist = new LinkedList<number>()
 mylist.append(1)
@@ -75,16 +68,23 @@ console.log(testing.flatmap(x => new LinkedList<string>().fromArray(x.split(""))
 const objtest = new LinkedList<object>();
 
 objtest.append({
-    name:"samir",
-    num:1
+    name: "samir",
+    num: 1
 })
 objtest.append({
-    name:"samir",
-    num:2
+    name: "samir",
+    num: 2
 })
-
 console.log(objtest.toString())
-console.log( [
-    "samir",
-    1
- ] + "")
+
+const s = new Stack<number>()
+const ss = new Stack<number>()
+
+console.log(s.push(5).toString)
+console.log(s.push(10).toString)
+
+console.log(ss.push(15).toString)
+console.log(ss.push(16).toString)
+
+console.log(ss.pile(s).toString)
+console.log(ss.unPile(1).toString)

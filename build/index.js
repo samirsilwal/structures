@@ -3,11 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 console.log("Initial setup");
 var ll_1 = require(".//ll");
 var stack_1 = require("./stack");
-var s = new stack_1.Stack();
-console.log(s.push(5).toString);
-console.log(s.push(10).toString);
-console.log(s.pop());
-console.log(s.toString);
 var mylist = new ll_1.LinkedList();
 mylist.append(1);
 mylist.append(2);
@@ -63,7 +58,11 @@ objtest.append({
     num: 2
 });
 console.log(objtest.toString());
-console.log([
-    "samir",
-    1
-] + "");
+var s = new stack_1.Stack();
+var ss = new stack_1.Stack();
+console.log(s.push(5).toString);
+console.log(s.push(10).toString);
+console.log(ss.push(15).toString);
+console.log(ss.push(16).toString);
+console.log(ss.pile(s).toString);
+console.log(ss.unPile(1).toString);

@@ -29,6 +29,26 @@ var Stack = /** @class */ (function () {
             _this.stack = _this.stack.ltail;
             return t;
         };
+        /**
+         * Adds a pile of stack one on top of other.
+         * @param s Stack of type T to be piled on top
+         */
+        this.pile = function (s) {
+            _this.stack = _this.stack["+"](s.stack);
+            return _this;
+        };
+        /**
+          * Remove a pile of stack from top of stack.
+          * @param n number of element of stack to be removed.
+          */
+        this.unPile = function (n) {
+            if (n > _this.stack.length)
+                return null;
+            if (n == 0)
+                return _this;
+            _this.stack = _this.stack.ltail;
+            return _this.unPile(n - 1);
+        };
         this.stack = new ll_1.LinkedList();
     }
     Object.defineProperty(Stack.prototype, "toString", {
