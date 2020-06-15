@@ -7,7 +7,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * Generic class implementing LinkedList
  */
 var LinkedList = /** @class */ (function () {
-    function LinkedList() {
+    function LinkedList(obj) {
+        if (obj === void 0) { obj = null; }
         var _this = this;
         // private properties
         this.head = null;
@@ -253,6 +254,19 @@ var LinkedList = /** @class */ (function () {
         this.find = function (predicate) {
             return _this.filter(predicate).length > 0 ? _this.lhead : null;
         };
+        /**
+         * Method:
+         * @param acc accumulator to flatten the given collection
+         * flatten a single depth of collection
+         * returns a flatten linkedList of the elements
+         */
+        this.flatten = function (acc) {
+            if (acc === void 0) { acc = new LinkedList(); }
+            if (!_this.tail)
+                return acc;
+            return _this.ltail.flatten(acc["+"](new LinkedList(_this.lhead)));
+        };
+        obj && Object.assign(this, obj);
     }
     Object.defineProperty(LinkedList.prototype, "length", {
         // Getters

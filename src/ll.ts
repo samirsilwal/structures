@@ -8,6 +8,7 @@ export type foreachFucntion<T> = (t: T) => T
 export type mapFunction<T, U> = (t: T) => U
 export type filterFunction<T> = (t: T) => boolean
 export type reduceFunction<T> = (t: T, acc: T) => T
+export type flatmapFunction<T, U> = (t: T) => LinkedList<U>
 
 /**
  * Interface for a Node in LinkedList
@@ -27,6 +28,10 @@ export class LinkedList<T> {
     private head: Node<T> = null;
     private tail: Node<T> = null;
     private EMPTY_NODE: Node<T> = { value: null, next: null }
+
+    constructor(obj: any=null){
+        obj && Object.assign(this, obj)
+    }
 
     // private methods
     /**
@@ -348,5 +353,16 @@ export class LinkedList<T> {
      */
     public find = (predicate: filterFunction<T>): T => {
         return this.filter(predicate).length > 0 ? this.lhead : null
+    }
+
+    /**
+     * Method:
+     * @param acc accumulator to flatten the given collection 
+     * flatten a single depth of collection
+     * returns a flatten linkedList of the elements
+     */
+    public flatten = (acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T>  => {
+        if (!this.tail) return acc;
+        return this.ltail.flatten(acc["+"](new LinkedList<T>(this.lhead)))
     }
 }

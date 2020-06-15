@@ -37,3 +37,8 @@ console.log(testlistm.mRemove(10));
 console.log("test contains");
 console.log(testlistm.contains(20));
 console.log(testlistm.contains(0));
+var flattest = new ll_1.LinkedList().fromArray(["apple", "banana", "orange"]);
+console.log(flattest.map(function (x) { return x.toUpperCase(); }).toString());
+var mylisttemp = flattest.map(function (x) { return new ll_1.LinkedList().fromArray(x.split("")).map(function (y) { return y.toUpperCase(); }); });
+console.log(mylisttemp.toString());
+console.log(mylisttemp.flatten().toString());
