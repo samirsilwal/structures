@@ -45,7 +45,9 @@ export class Stack<T> {
 
     //methods
     /**
-     * @param value push element into the stack
+     * Add value at top of the stack.
+     * @param value push element into the stack.
+     * @returns A stack object with the item at top.
      */
     public push = (value: T): Stack<T> => {
         this.stack = new LinkedList<T>().append(value)["+"](this.stack)
@@ -53,7 +55,8 @@ export class Stack<T> {
     }
 
     /**
-     * returns the element at top of the stack
+     * Removes the element from top of stack.
+     * @returns the element at top of the stack
      */
     public pop = (): T => {
         const t = this.stack.lhead
@@ -64,6 +67,7 @@ export class Stack<T> {
     /**
      * Adds a pile of stack one on top of other.
      * @param s Stack of type T to be piled on top
+     * @returns A stack obj piled on other.
      */
     public pile = (s: Stack<T>): Stack<T> => {
         this.stack = this.stack["+"](s.stack)
@@ -73,6 +77,7 @@ export class Stack<T> {
     /**
       * Remove a pile of stack from top of stack.
       * @param n number of element of stack to be removed.
+      * @returns A stack obj with n element poped
       */
     public unPile = (n: number): Stack<T> => {
         if (n > this.stack.length) return null

@@ -4,6 +4,7 @@
   "description": "",
   "main": "build/index.js",
   "scripts": {
+    "test": "jest --passWithNoTests",
     "start:dev": "tslint --project . && nodemon",
     "build": "rimraf ./build && tsc",
     "start": "npm run build && node ./build/index.js"
@@ -20,9 +21,12 @@
   },
   "homepage": "https://github.com/samirsilwal/errorjs#readme",
   "devDependencies": {
+    "@types/jest": "^26.0.0",
     "@types/node": "^14.0.13",
+    "jest": "^26.0.1",
     "nodemon": "^2.0.4",
     "rimraf": "^3.0.2",
+    "ts-jest": "^26.1.0",
     "ts-node": "^8.10.2",
     "tslint": "^6.1.2",
     "typescript": "^3.9.5"

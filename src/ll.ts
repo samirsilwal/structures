@@ -61,12 +61,12 @@ export class LinkedList<T> {
     }
 
     // private methods
+
     /**
-     * Method:
      * Adds wrapped node to the end of the collection
      * Parameter:
-     * node(Node): node wrapper for each collection unit
-     * returns void
+     * @param node (Node): node wrapper for each collection unit
+     * @returns void
      */
     private appendToEnd = (node: Node<T>): void => {
         if (this.slength() === 1) {
@@ -78,8 +78,7 @@ export class LinkedList<T> {
     }
 
     /**
-     * Method:
-     * returns length of the collectison
+     * @returns length of the collection.
      */
     private slength = (): number => {
         let count: number = 0;
@@ -88,10 +87,14 @@ export class LinkedList<T> {
     }
 
     /**
-     * A Generic iterator function which loops over each el in collection
+     * A Generic iterator function which loops over each el in collection.
      * and apaplies callback to them along the traverse.
      *
      * Able to perform sideeffects
+     * 
+     * @param callback A transform applied to each el in collection.
+     * @param node (Node) wrapper for each list component. 
+     * @returns void
      */
     private iterateOver = (callback: any, node: Node<T> = this.head): void => {
         if (!node) {
@@ -102,10 +105,9 @@ export class LinkedList<T> {
     }
 
     /**
-     * Method
-     * parameter:
-     * node(Node<T>): node of the collection
-     * returns the list of collection except the head unit
+     * IT simply return the collection excluding the head el(first element).
+     * @param node (Node<T>): node of the collection
+     * @returns the list of collection except the head unit
      */
     private getlTail = (node: Node<T> = this.head.next): LinkedList<T> => {
         const temp: LinkedList<T> = new LinkedList<T>()
@@ -117,10 +119,9 @@ export class LinkedList<T> {
     }
 
     /**
-     * Method
-     * parameter:
-     * node(Node<T>): node of the collection
-     * returns the list of collection except the tail unit
+     * Method return the collection excluing the tail el(last element).
+     * @param node (Node<T>): node of the collection
+     * @returns the list of collection except the tail unit
      */
     private getlTop = (node: Node<T> = this.head): LinkedList<T> => {
         const temp: LinkedList<T> = new LinkedList<T>()
@@ -130,7 +131,15 @@ export class LinkedList<T> {
         }
         return temp
     }
+
     //utility for toSting method
+
+    /**
+     * Parses the object type of js to string.
+     * @param obj an object type to be transformed
+     * Note: obj refers to object not Object
+     * @returns stringified object  
+     */
     private parseObj = (obj: object) => {
         return JSON.stringify(obj).split(",").map(item => {
             const sp = item.split(":")
@@ -140,16 +149,13 @@ export class LinkedList<T> {
     }
 
     /**
-     * Method:
-     * returns true if collection is empty
+     * @returns true if collection is empty
      */
     public isEmpty = (): boolean => !this.head
 
     /**
-     * Method:
-     * parameters:
-     * value(T) => type of unit of collection
-     * return a Node with the given value
+     * @param value (T) => type of unit of collection
+     * @returns a Node with the given value
      */
     public summonNode = (value: T): Node<T> => {
         return {
@@ -159,11 +165,9 @@ export class LinkedList<T> {
     }
 
     /**
-     * Method:
-     * Appends the value to the end of the collection
-     * parameters:
-     * value(T) => type of unit of collection
-     * return a LinkedList collection of the items
+     * Appends the value to the end of the collection.
+     * @param value (T) => type of unit of collection
+     * @returns a LinkedList collection of the items
      */
     public append = (value: T): LinkedList<T> => {
         const node = this.summonNode(value)
@@ -179,20 +183,18 @@ export class LinkedList<T> {
     }
 
     /**
-     * Method:
-     * parameter:
-     * value(T): value to be removed
-     * returns a new collection
+     * Remove the element if exists in collection.
+     * @param value(T): value to be removed
+     * @returns a new collection without the eremoved element
      */
     public remove = (value: T): LinkedList<T> => {
         return this.filter(i => i !== value)
     }
 
     /**
-     * Method:
-     * parameter:
-     * value(T): value to be removed
-     * returns boolean as result of operation
+     * Mutable removal of the provided element.
+     * @param value (T): value to be removed
+     * @returns boolean as result of operation
      */
     public mRemove = (value: T): boolean => {
         let deleted: boolean = false
@@ -221,8 +223,8 @@ export class LinkedList<T> {
     }
 
     /**
-     * Method:
-     * returns the typical linked list view of the collection.
+     * Display the intuitive representation of LinkedList.
+     * @returns the typical linked list view of the collection.
      */
     public toLLString = (): string => {
         let temp = ""
@@ -233,8 +235,8 @@ export class LinkedList<T> {
     }
 
     /**
-     * Method:
-     * returns the list view of the collection.
+     * Display the collection as string.
+     * @returns the list view of the collection.
      */
     public toString = (): string => {
         let temp = "[ "
@@ -254,10 +256,9 @@ export class LinkedList<T> {
     }
 
     /**
-     * Method:
      * converts Array to LinkedList collection.
-     * parameter:
-     * arr(Array<T>): Array of unit type T.
+     * @param arr (Array<T>): Array of unit type T.
+     * @returns  a LinkedList form of the default array type of js.
      */
     public fromArray = (arr: T[]): LinkedList<T> => {
         arr.forEach(this.append);
@@ -265,10 +266,9 @@ export class LinkedList<T> {
     }
 
     /**
-     * Method:
      * converts Array to LinkedList collection.
-     * parameter:
-     * arr(Array<T>): Array of unit type T.
+     * @param arr (Array<T>): Array of unit type T.
+     * @returns the default array version of the collection.
      */
     public toArray = (): T[] => {
         const temp: T[] = [];
@@ -277,11 +277,9 @@ export class LinkedList<T> {
     }
 
     /**
-     * Method:
-     * non-recursive implementation
-     * parameter:
-     * list(LinkedList<T>): list needed to be appended to the end
-     * returns the transformed or mapped collection of linkedList itself.
+     * Note: non-recursive implementation
+     * @param list (LinkedList<T>): list needed to be appended to the end
+     * @returns the transformed or mapped collection of linkedList itself.
      */
     private "++" = (list: LinkedList<T>): LinkedList<T> => {
         let node: Node<T> = list.head
@@ -293,21 +291,19 @@ export class LinkedList<T> {
     }
 
     /**
-     * Method:
-     * parameter:
-     * list(LinkedList<T>): list needed to be appended to the end
-     * returns the transformed or mapped collection of linkedList itself.
+     * Adds to LinkedList together just like string concat.
+     * @param list (LinkedList<T>): list needed to be appended to the end
+     * @returns the transformed or mapped collection of linkedList itself.
      */
     public "+" = (list: LinkedList<T>): LinkedList<T> => {
         if (!list.tail) return this
         return this.append(list.lhead)["+"](list.ltail)
     }
     /**
-     * Method:
      * Non functional implementation of map
-     * parameter:
-     * feature: A call back method applied for each element of the collection.
-     * returns the transformed or mapped collection of linkedList itself.
+     * @param callback : A call back method applied for each element of the collection.
+     * @param node defults to head of the collection.
+     * @returns the transformed or mapped collection of linkedList itself.
      */
     private testMap<U>(callback: mapFunction<T, U>, node: Node<T> = this.head): LinkedList<U> {
         const temp: LinkedList<U> = new LinkedList<U>()
@@ -322,10 +318,10 @@ export class LinkedList<T> {
     // make these methods functional
 
     /**
-     * Method:
-     * parameter:
-     * feature: A call back method applied for each element of the collection.
-     * returns the transformed or mapped collection of linkedList itself.
+     * Transform a collection of one domain or type to another.
+     * @param callback: A call back method applied for each element of the collection.
+     * @param acc accumulator defaults to empty linkedlist.
+     * @returns the transformed or mapped collection of linkedList itself.
      */
     public map<U>(callback: mapFunction<T, U>, acc: LinkedList<U> = new LinkedList<U>()): LinkedList<U> {
         if (!this.tail) {
@@ -335,10 +331,10 @@ export class LinkedList<T> {
     }
 
     /**
-     * Method:
-     * parameter:
-     * feature: A predicate callback method applied for each element of the collection.
-     * returns the filterd collection of linkedList itself which passes the predicate.
+     * Filter the el from the collection satisfying the predicate.
+     * @param callback: A predicate callback method applied for each element of the collection.
+     * @param acc accumulator defaults to empty linkedlist.
+     * @returns the filterd collection of linkedList itself which passes the predicate.
      */
     public filter(callback: filterFunction<T>, acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T> {
         if (!this.tail) return acc;
@@ -346,10 +342,10 @@ export class LinkedList<T> {
     }
 
     /**
-     * Method:
-     * parameter:
-     * feature: A predicate callback method applied for each element of the collection.
-     * returns the reduced collection of linkedList itself which passes the predicate.
+     * Reduce the collection to a single value transformed with callback anad accumulated.
+     * @param callback: A predicate callback method applied for each element of the collection.
+     * @param acc accumulator defaults to null.
+     * @returns the reduced collection of linkedList itself which passes the predicate.
      */
     public reduce(callback: reduceFunction<T>, acc: T = null): T {
         if (!this.tail) return acc;
@@ -357,10 +353,10 @@ export class LinkedList<T> {
     }
 
     /**
-     * Method:
-     * converts Array to LinkedList collection.
-     * parameter:
-     * arr(Array<T>): Array of unit type T.
+     * Applies the callback to each el in the collection
+     * @param arr (Array<T>): Array of unit type T.
+     * @param acc accumulator defaults to empty linkedlist.
+     * @returns the collection applied to callback for each el. 
      */
     public foreach = (callback: foreachFucntion<T>, acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T> => {
         if (!this.tail) return acc
@@ -368,10 +364,10 @@ export class LinkedList<T> {
     }
 
     /**
-     * Method:
-     * converts Array to LinkedList collection.
-     * parameter:
-     * arr(Array<T>): Array of unit type T.
+     * Converts Array to LinkedList collection.:
+     * @param arr (Array<T>): Array of unit type T.
+     * @param node Defaults to head of collection.
+     * @returns the mutated collection.
      */
     public mforeach = (callback: foreachFucntion<T>, node: Node<T> = this.head): void => {
         if (!node) return
@@ -380,32 +376,27 @@ export class LinkedList<T> {
     }
 
     /**
-     * Method:
-     * checks if collection contains the item
-     * parameter:
-     * value(T): find if value exist in the collection
-     * returns boolean as per result.
+     * Checks if collection contains the item.
+     * @param value (T): find if value exist in the collection.
+     * @returns boolean as per result.
      */
     public contains = (value: T): boolean => {
         return this.filter(_ => _ === value).length > 0 ? true : false
     }
 
     /**
-     * Method:
-     * returns the first item found as per predicate
-     * parameter:
-     * predicate: function to filter the collection
-     * returns value if found else null
+     * Returns the first item found as per predicate.
+     * predicate: function to filter the collection.
+     * @returns value if found else null.
      */
     public find = (predicate: filterFunction<T>): T => {
         return this.filter(predicate).length > 0 ? this.lhead : null
     }
 
     /**
-     * Method:
+     *flatten a single depth of collection
      * @param acc accumulator to flatten the given collection
-     * flatten a single depth of collection
-     * returns a flatten linkedList of the elements
+     * @returns a flatten linkedList of the elements
      */
     public flatten = (acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T> => {
         if (!this.tail) return acc;
@@ -413,11 +404,10 @@ export class LinkedList<T> {
     }
 
     /**
-     * Method:
      * A monadic feature that maps and then flattens the collection.
      * @param callback function executed for the elements in the collection
      * @param acc oprtional parameter to accumulate the flatten collection.
-     * returns the flatten collection after being mapped
+     * @returns the flatten collection after being mapped
      */
     public flatmap<U>(callback: flatmapFunction<T, U>, acc: LinkedList<U> = new LinkedList<U>()): LinkedList<U> {
         if (!this.tail) return acc

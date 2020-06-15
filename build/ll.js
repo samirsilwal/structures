@@ -24,11 +24,10 @@ var LinkedList = /** @class */ (function () {
         this.EMPTY_NODE = { value: null, next: null };
         // private methods
         /**
-         * Method:
          * Adds wrapped node to the end of the collection
          * Parameter:
-         * node(Node): node wrapper for each collection unit
-         * returns void
+         * @param node (Node): node wrapper for each collection unit
+         * @returns void
          */
         this.appendToEnd = function (node) {
             if (_this.slength() === 1) {
@@ -40,8 +39,7 @@ var LinkedList = /** @class */ (function () {
             _this.tail = node;
         };
         /**
-         * Method:
-         * returns length of the collectison
+         * @returns length of the collection.
          */
         this.slength = function () {
             var count = 0;
@@ -49,10 +47,14 @@ var LinkedList = /** @class */ (function () {
             return count;
         };
         /**
-         * A Generic iterator function which loops over each el in collection
+         * A Generic iterator function which loops over each el in collection.
          * and apaplies callback to them along the traverse.
          *
          * Able to perform sideeffects
+         *
+         * @param callback A transform applied to each el in collection.
+         * @param node (Node) wrapper for each list component.
+         * @returns void
          */
         this.iterateOver = function (callback, node) {
             if (node === void 0) { node = _this.head; }
@@ -63,10 +65,9 @@ var LinkedList = /** @class */ (function () {
             _this.iterateOver(callback, node.next);
         };
         /**
-         * Method
-         * parameter:
-         * node(Node<T>): node of the collection
-         * returns the list of collection except the head unit
+         * IT simply return the collection excluding the head el(first element).
+         * @param node (Node<T>): node of the collection
+         * @returns the list of collection except the head unit
          */
         this.getlTail = function (node) {
             if (node === void 0) { node = _this.head.next; }
@@ -78,10 +79,9 @@ var LinkedList = /** @class */ (function () {
             return temp;
         };
         /**
-         * Method
-         * parameter:
-         * node(Node<T>): node of the collection
-         * returns the list of collection except the tail unit
+         * Method return the collection excluing the tail el(last element).
+         * @param node (Node<T>): node of the collection
+         * @returns the list of collection except the tail unit
          */
         this.getlTop = function (node) {
             if (node === void 0) { node = _this.head; }
@@ -93,6 +93,12 @@ var LinkedList = /** @class */ (function () {
             return temp;
         };
         //utility for toSting method
+        /**
+         * Parses the object type of js to string.
+         * @param obj an object type to be transformed
+         * Note: obj refers to object not Object
+         * @returns stringified object
+         */
         this.parseObj = function (obj) {
             return JSON.stringify(obj).split(",").map(function (item) {
                 var sp = item.split(":");
@@ -101,15 +107,12 @@ var LinkedList = /** @class */ (function () {
             }).join(",").replace(/:/g, ": ").replace(/,/g, ", ").replace(/{/g, "{ ").replace(/}/g, " }").replace(/"/g, "'");
         };
         /**
-         * Method:
-         * returns true if collection is empty
+         * @returns true if collection is empty
          */
         this.isEmpty = function () { return !_this.head; };
         /**
-         * Method:
-         * parameters:
-         * value(T) => type of unit of collection
-         * return a Node with the given value
+         * @param value (T) => type of unit of collection
+         * @returns a Node with the given value
          */
         this.summonNode = function (value) {
             return {
@@ -118,11 +121,9 @@ var LinkedList = /** @class */ (function () {
             };
         };
         /**
-         * Method:
-         * Appends the value to the end of the collection
-         * parameters:
-         * value(T) => type of unit of collection
-         * return a LinkedList collection of the items
+         * Appends the value to the end of the collection.
+         * @param value (T) => type of unit of collection
+         * @returns a LinkedList collection of the items
          */
         this.append = function (value) {
             var node = _this.summonNode(value);
@@ -135,19 +136,17 @@ var LinkedList = /** @class */ (function () {
             return _this;
         };
         /**
-         * Method:
-         * parameter:
-         * value(T): value to be removed
-         * returns a new collection
+         * Remove the element if exists in collection.
+         * @param value(T): value to be removed
+         * @returns a new collection without the eremoved element
          */
         this.remove = function (value) {
             return _this.filter(function (i) { return i !== value; });
         };
         /**
-         * Method:
-         * parameter:
-         * value(T): value to be removed
-         * returns boolean as result of operation
+         * Mutable removal of the provided element.
+         * @param value (T): value to be removed
+         * @returns boolean as result of operation
          */
         this.mRemove = function (value) {
             var deleted = false;
@@ -172,8 +171,8 @@ var LinkedList = /** @class */ (function () {
             return deleted;
         };
         /**
-         * Method:
-         * returns the typical linked list view of the collection.
+         * Display the intuitive representation of LinkedList.
+         * @returns the typical linked list view of the collection.
          */
         this.toLLString = function () {
             var temp = "";
@@ -183,8 +182,8 @@ var LinkedList = /** @class */ (function () {
             return temp + "null";
         };
         /**
-         * Method:
-         * returns the list view of the collection.
+         * Display the collection as string.
+         * @returns the list view of the collection.
          */
         this.toString = function () {
             var temp = "[ ";
@@ -203,20 +202,18 @@ var LinkedList = /** @class */ (function () {
             return temp + "]";
         };
         /**
-         * Method:
          * converts Array to LinkedList collection.
-         * parameter:
-         * arr(Array<T>): Array of unit type T.
+         * @param arr (Array<T>): Array of unit type T.
+         * @returns  a LinkedList form of the default array type of js.
          */
         this.fromArray = function (arr) {
             arr.forEach(_this.append);
             return _this;
         };
         /**
-         * Method:
          * converts Array to LinkedList collection.
-         * parameter:
-         * arr(Array<T>): Array of unit type T.
+         * @param arr (Array<T>): Array of unit type T.
+         * @returns the default array version of the collection.
          */
         this.toArray = function () {
             var temp = [];
@@ -224,11 +221,9 @@ var LinkedList = /** @class */ (function () {
             return temp;
         };
         /**
-         * Method:
-         * non-recursive implementation
-         * parameter:
-         * list(LinkedList<T>): list needed to be appended to the end
-         * returns the transformed or mapped collection of linkedList itself.
+         * Note: non-recursive implementation
+         * @param list (LinkedList<T>): list needed to be appended to the end
+         * @returns the transformed or mapped collection of linkedList itself.
          */
         this["++"] = function (list) {
             var node = list.head;
@@ -239,10 +234,9 @@ var LinkedList = /** @class */ (function () {
             return _this;
         };
         /**
-         * Method:
-         * parameter:
-         * list(LinkedList<T>): list needed to be appended to the end
-         * returns the transformed or mapped collection of linkedList itself.
+         * Adds to LinkedList together just like string concat.
+         * @param list (LinkedList<T>): list needed to be appended to the end
+         * @returns the transformed or mapped collection of linkedList itself.
          */
         this["+"] = function (list) {
             if (!list.tail)
@@ -250,10 +244,10 @@ var LinkedList = /** @class */ (function () {
             return _this.append(list.lhead)["+"](list.ltail);
         };
         /**
-         * Method:
-         * converts Array to LinkedList collection.
-         * parameter:
-         * arr(Array<T>): Array of unit type T.
+         * Applies the callback to each el in the collection
+         * @param arr (Array<T>): Array of unit type T.
+         * @param acc accumulator defaults to empty linkedlist.
+         * @returns the collection applied to callback for each el.
          */
         this.foreach = function (callback, acc) {
             if (acc === void 0) { acc = new LinkedList(); }
@@ -262,10 +256,10 @@ var LinkedList = /** @class */ (function () {
             return _this.ltail.foreach(callback, acc["+"](new LinkedList().append(callback(_this.lhead))));
         };
         /**
-         * Method:
-         * converts Array to LinkedList collection.
-         * parameter:
-         * arr(Array<T>): Array of unit type T.
+         * Converts Array to LinkedList collection.:
+         * @param arr (Array<T>): Array of unit type T.
+         * @param node Defaults to head of collection.
+         * @returns the mutated collection.
          */
         this.mforeach = function (callback, node) {
             if (node === void 0) { node = _this.head; }
@@ -275,30 +269,25 @@ var LinkedList = /** @class */ (function () {
             _this.mforeach(callback, node.next);
         };
         /**
-         * Method:
-         * checks if collection contains the item
-         * parameter:
-         * value(T): find if value exist in the collection
-         * returns boolean as per result.
+         * Checks if collection contains the item.
+         * @param value (T): find if value exist in the collection.
+         * @returns boolean as per result.
          */
         this.contains = function (value) {
             return _this.filter(function (_) { return _ === value; }).length > 0 ? true : false;
         };
         /**
-         * Method:
-         * returns the first item found as per predicate
-         * parameter:
-         * predicate: function to filter the collection
-         * returns value if found else null
+         * Returns the first item found as per predicate.
+         * predicate: function to filter the collection.
+         * @returns value if found else null.
          */
         this.find = function (predicate) {
             return _this.filter(predicate).length > 0 ? _this.lhead : null;
         };
         /**
-         * Method:
+         *flatten a single depth of collection
          * @param acc accumulator to flatten the given collection
-         * flatten a single depth of collection
-         * returns a flatten linkedList of the elements
+         * @returns a flatten linkedList of the elements
          */
         this.flatten = function (acc) {
             if (acc === void 0) { acc = new LinkedList(); }
@@ -349,11 +338,10 @@ var LinkedList = /** @class */ (function () {
         return this.toString();
     };
     /**
-     * Method:
      * Non functional implementation of map
-     * parameter:
-     * feature: A call back method applied for each element of the collection.
-     * returns the transformed or mapped collection of linkedList itself.
+     * @param callback : A call back method applied for each element of the collection.
+     * @param node defults to head of the collection.
+     * @returns the transformed or mapped collection of linkedList itself.
      */
     LinkedList.prototype.testMap = function (callback, node) {
         if (node === void 0) { node = this.head; }
@@ -367,10 +355,10 @@ var LinkedList = /** @class */ (function () {
     // TODO: implement filter and reduce.....
     // make these methods functional
     /**
-     * Method:
-     * parameter:
-     * feature: A call back method applied for each element of the collection.
-     * returns the transformed or mapped collection of linkedList itself.
+     * Transform a collection of one domain or type to another.
+     * @param callback: A call back method applied for each element of the collection.
+     * @param acc accumulator defaults to empty linkedlist.
+     * @returns the transformed or mapped collection of linkedList itself.
      */
     LinkedList.prototype.map = function (callback, acc) {
         if (acc === void 0) { acc = new LinkedList(); }
@@ -380,10 +368,10 @@ var LinkedList = /** @class */ (function () {
         return this.ltail.map(callback, acc["+"](new LinkedList().append(callback(this.lhead))));
     };
     /**
-     * Method:
-     * parameter:
-     * feature: A predicate callback method applied for each element of the collection.
-     * returns the filterd collection of linkedList itself which passes the predicate.
+     * Filter the el from the collection satisfying the predicate.
+     * @param callback: A predicate callback method applied for each element of the collection.
+     * @param acc accumulator defaults to empty linkedlist.
+     * @returns the filterd collection of linkedList itself which passes the predicate.
      */
     LinkedList.prototype.filter = function (callback, acc) {
         if (acc === void 0) { acc = new LinkedList(); }
@@ -392,10 +380,10 @@ var LinkedList = /** @class */ (function () {
         return callback(this.lhead) ? this.ltail.filter(callback, acc["+"](new LinkedList().append(this.lhead))) : this.ltail.filter(callback, acc);
     };
     /**
-     * Method:
-     * parameter:
-     * feature: A predicate callback method applied for each element of the collection.
-     * returns the reduced collection of linkedList itself which passes the predicate.
+     * Reduce the collection to a single value transformed with callback anad accumulated.
+     * @param callback: A predicate callback method applied for each element of the collection.
+     * @param acc accumulator defaults to null.
+     * @returns the reduced collection of linkedList itself which passes the predicate.
      */
     LinkedList.prototype.reduce = function (callback, acc) {
         if (acc === void 0) { acc = null; }
@@ -404,11 +392,10 @@ var LinkedList = /** @class */ (function () {
         return this.ltail.reduce(callback, callback(this.lhead, acc));
     };
     /**
-     * Method:
      * A monadic feature that maps and then flattens the collection.
      * @param callback function executed for the elements in the collection
      * @param acc oprtional parameter to accumulate the flatten collection.
-     * returns the flatten collection after being mapped
+     * @returns the flatten collection after being mapped
      */
     LinkedList.prototype.flatmap = function (callback, acc) {
         if (acc === void 0) { acc = new LinkedList(); }
