@@ -59,5 +59,7 @@ console.log(mylisttemp.toString())
 console.log(mylisttemp.flatten().toString())
 
 const testing = new LinkedList<string>().fromArray(["superman", "batman", "antman"])
+console.log(testing.ltop.toString())
+console.log(testing.lbuttom)
 console.log("test flatmap")
 console.log(testing.flatmap(x => new LinkedList<string>().fromArray(x.split("")).map(y => y.toUpperCase())).toString())

@@ -29,8 +29,29 @@ export class LinkedList<T> {
     private tail: Node<T> = null;
     private EMPTY_NODE: Node<T> = { value: null, next: null }
 
-    constructor(obj: any=null){
+    constructor(obj: any = null) {
         obj && Object.assign(this, obj)
+    }
+
+    // Getters
+    get length() {
+        return this.slength()
+    }
+
+    get lbuttom() {
+        return this.tail.value
+    }
+
+    get ltop() {
+        return this.getlTop()
+    }
+
+    get lhead() {
+        return this.head.value
+    }
+
+    get ltail() {
+        return this.getlTail()
     }
 
     // private methods
@@ -89,17 +110,19 @@ export class LinkedList<T> {
         return temp
     }
 
-    // Getters
-    get length() {
-        return this.slength()
-    }
-
-    get lhead() {
-        return this.head.value
-    }
-
-    get ltail() {
-        return this.getlTail()
+    /**
+     * Method
+     * parameter:
+     * node(Node<T>): node of the collection
+     * returns the list of collection except the tail unit
+     */
+    private getlTop = (node: Node<T> = this.head): LinkedList<T> => {
+        const temp: LinkedList<T> = new LinkedList<T>()
+        while (node.next) {
+            temp.append(node.value)
+            node = node.next
+        }
+        return temp
     }
 
     /**
@@ -361,7 +384,7 @@ export class LinkedList<T> {
      * flatten a single depth of collection
      * returns a flatten linkedList of the elements
      */
-    public flatten = (acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T>  => {
+    public flatten = (acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T> => {
         if (!this.tail) return acc;
         return this.ltail.flatten(acc["+"](new LinkedList<T>(this.lhead)))
     }
@@ -373,8 +396,8 @@ export class LinkedList<T> {
      * @param acc oprtional parameter to accumulate the flatten collection.
      * returns the flatten collection after being mapped
      */
-    public flatmap<U>(callback: flatmapFunction<T, U>, acc: LinkedList<U> = new LinkedList<U>()): LinkedList<U>{
-        if(!this.tail) return acc
+    public flatmap<U>(callback: flatmapFunction<T, U>, acc: LinkedList<U> = new LinkedList<U>()): LinkedList<U> {
+        if (!this.tail) return acc
         return this.ltail.flatmap(callback, acc["+"](callback(this.lhead)))
     }
 }

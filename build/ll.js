@@ -70,6 +70,21 @@ var LinkedList = /** @class */ (function () {
             return temp;
         };
         /**
+         * Method
+         * parameter:
+         * node(Node<T>): node of the collection
+         * returns the list of collection except the tail unit
+         */
+        this.getlTop = function (node) {
+            if (node === void 0) { node = _this.head; }
+            var temp = new LinkedList();
+            while (node.next) {
+                temp.append(node.value);
+                node = node.next;
+            }
+            return temp;
+        };
+        /**
          * Method:
          * returns true if collection is empty
          */
@@ -272,6 +287,20 @@ var LinkedList = /** @class */ (function () {
         // Getters
         get: function () {
             return this.slength();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(LinkedList.prototype, "lbuttom", {
+        get: function () {
+            return this.tail.value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(LinkedList.prototype, "ltop", {
+        get: function () {
+            return this.getlTop();
         },
         enumerable: true,
         configurable: true
