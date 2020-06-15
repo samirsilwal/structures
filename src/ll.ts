@@ -38,7 +38,7 @@ export class LinkedList<T> {
         return this.slength()
     }
 
-    get lbuttom() {
+    get lbottom() {
         return this.tail.value
     }
 
@@ -225,6 +225,7 @@ export class LinkedList<T> {
     public toString = (): string => {
         let temp = "[ "
         this.iterateOver(i => {
+            // if (typeof i ===  )
             temp = temp + i + " "
         });
         return temp + "]";
@@ -277,7 +278,7 @@ export class LinkedList<T> {
      */
     public "+" = (list: LinkedList<T>): LinkedList<T> => {
         if (!list.tail) return this
-        return this.append(list.lhead)["++"](list.ltail)
+        return this.append(list.lhead)["+"](list.ltail)
     }
     /**
      * Method:

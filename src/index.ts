@@ -60,6 +60,23 @@ console.log(mylisttemp.flatten().toString())
 
 const testing = new LinkedList<string>().fromArray(["superman", "batman", "antman"])
 console.log(testing.ltop.toString())
-console.log(testing.lbuttom)
+console.log(testing.lbottom)
 console.log("test flatmap")
 console.log(testing.flatmap(x => new LinkedList<string>().fromArray(x.split("")).map(y => y.toUpperCase())).toString())
+
+let objtest = new LinkedList<Array<any>>();
+
+objtest.append([
+    "samir",
+     1
+])
+objtest.append([
+    "samir",
+     2
+])
+
+console.log(objtest.toString())
+console.log(typeof [
+    "samir",
+     1
+])

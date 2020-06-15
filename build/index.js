@@ -44,6 +44,20 @@ console.log(mylisttemp.toString());
 console.log(mylisttemp.flatten().toString());
 var testing = new ll_1.LinkedList().fromArray(["superman", "batman", "antman"]);
 console.log(testing.ltop.toString());
-console.log(testing.lbuttom);
+console.log(testing.lbottom);
 console.log("test flatmap");
 console.log(testing.flatmap(function (x) { return new ll_1.LinkedList().fromArray(x.split("")).map(function (y) { return y.toUpperCase(); }); }).toString());
+var objtest = new ll_1.LinkedList();
+objtest.append([
+    "samir",
+    1
+]);
+objtest.append([
+    "samir",
+    2
+]);
+console.log(objtest.toString());
+console.log(typeof [
+    "samir",
+    1
+]);

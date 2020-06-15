@@ -173,6 +173,7 @@ var LinkedList = /** @class */ (function () {
         this.toString = function () {
             var temp = "[ ";
             _this.iterateOver(function (i) {
+                // if (typeof i ===  )
                 temp = temp + i + " ";
             });
             return temp + "]";
@@ -222,7 +223,7 @@ var LinkedList = /** @class */ (function () {
         this["+"] = function (list) {
             if (!list.tail)
                 return _this;
-            return _this.append(list.lhead)["++"](list.ltail);
+            return _this.append(list.lhead)["+"](list.ltail);
         };
         /**
          * Method:
@@ -291,7 +292,7 @@ var LinkedList = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(LinkedList.prototype, "lbuttom", {
+    Object.defineProperty(LinkedList.prototype, "lbottom", {
         get: function () {
             return this.tail.value;
         },
