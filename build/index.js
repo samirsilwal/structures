@@ -57,7 +57,7 @@ objtest.append({
     name: "samir",
     num: 2
 });
-console.log(objtest.toString());
+console.log(objtest);
 var s = new stack_1.Stack();
 var ss = new stack_1.Stack();
 console.log(s.push(5).toString);

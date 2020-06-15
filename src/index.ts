@@ -75,7 +75,7 @@ objtest.append({
     name: "samir",
     num: 2
 })
-console.log(objtest.toString())
+console.log(objtest)
 
 const s = new Stack<number>()
 const ss = new Stack<number>()

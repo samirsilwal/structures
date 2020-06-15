@@ -346,7 +346,7 @@ var LinkedList = /** @class */ (function () {
     });
     // console log print
     LinkedList.prototype[util.inspect.custom] = function (depth, opts) {
-        return this.toString;
+        return this.toString();
     };
     /**
      * Method:

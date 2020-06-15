@@ -57,7 +57,7 @@ export class LinkedList<T> {
 
     // console log print
     [util.inspect.custom](depth, opts) {
-        return this.toString
+        return this.toString()
     }
 
     // private methods
