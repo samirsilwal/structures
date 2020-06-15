@@ -2,6 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 console.log("Initial setup");
 var ll_1 = require(".//ll");
+var stack_1 = require("./stack");
+var s = new stack_1.Stack();
+console.log(s.push(5).toString);
+console.log(s.push(10).toString);
+console.log(s.pop());
+console.log(s.toString);
 var mylist = new ll_1.LinkedList();
 mylist.append(1);
 mylist.append(2);

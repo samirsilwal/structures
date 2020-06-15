@@ -1,6 +1,14 @@
 console.log("Initial setup");
 
 import { LinkedList } from ".//ll"
+import {Stack} from "./stack"
+
+const s = new Stack<number>()
+
+console.log(s.push(5).toString)
+console.log(s.push(10).toString)
+console.log(s.pop())
+console.log(s.toString)
 
 const mylist = new LinkedList<number>()
 mylist.append(1)
