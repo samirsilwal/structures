@@ -66,3 +66,6 @@ console.log(ss.push(15).toString);
 console.log(ss.push(16).toString);
 console.log(ss.pile(s).toString);
 console.log(ss.unPile(1).toString);
+console.log(ss.unPile(1).toString);
+console.log(ss.size);
+console.log(ss);

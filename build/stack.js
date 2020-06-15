@@ -2,8 +2,16 @@
 /**
  *  Module of Stack structure defination.
  */
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var ll_1 = require("./ll");
+var util = __importStar(require("util"));
 /**
  * A generic class implementing stack structure.
  */
@@ -59,6 +67,13 @@ var Stack = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(Stack.prototype, "size", {
+        get: function () {
+            return this.stack.length;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(Stack.prototype, "isEmpty", {
         get: function () {
             return this.stack.isEmpty();
@@ -80,6 +95,10 @@ var Stack = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    // console log print
+    Stack.prototype[util.inspect.custom] = function (depth, opts) {
+        return this.toString;
+    };
     return Stack;
 }());
 exports.Stack = Stack;

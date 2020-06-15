@@ -1,8 +1,16 @@
 "use strict";
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  *  Module of LinkedList structure defination.
  */
-Object.defineProperty(exports, "__esModule", { value: true });
+var util = __importStar(require("util"));
 /**
  * Generic class implementing LinkedList
  */
@@ -336,6 +344,10 @@ var LinkedList = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    // console log print
+    LinkedList.prototype[util.inspect.custom] = function (depth, opts) {
+        return this.toString;
+    };
     /**
      * Method:
      * Non functional implementation of map

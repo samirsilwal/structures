@@ -1,6 +1,7 @@
 /**
  *  Module of LinkedList structure defination.
  */
+import * as util from "util";
 
 // Custom type definations
 
@@ -52,6 +53,11 @@ export class LinkedList<T> {
 
     get ltail() {
         return this.getlTail()
+    }
+
+    // console log print
+    [util.inspect.custom](depth, opts) {
+        return this.toString
     }
 
     // private methods
@@ -127,9 +133,9 @@ export class LinkedList<T> {
     //utility for toSting method
     private parseObj = (obj: object) => {
         return JSON.stringify(obj).split(",").map(item => {
-                const sp = item.split(":")
-                sp[0] = sp[0].replace(/"/g, "")
-                return sp.join(":")
+            const sp = item.split(":")
+            sp[0] = sp[0].replace(/"/g, "")
+            return sp.join(":")
         }).join(",").replace(/:/g, ": ").replace(/,/g, ", ").replace(/{/g, "{ ").replace(/}/g, " }").replace(/"/g, "'")
     }
 
