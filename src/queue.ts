@@ -19,8 +19,8 @@ export class Queue<T> {
     }
 
     //console log print
-    [util.inspect.custom](d, o) {
-        this.queue.toString()
+    [util.inspect.custom](depth, opts) {
+        return this.toString
     }
 
     //getters
@@ -30,6 +30,13 @@ export class Queue<T> {
      */
     get length() {
         return this.queue.length
+    }
+
+    /**
+     * @returns the string form of queue.
+     */
+    get toString() {
+        return this.queue.toString()
     }
 
     /**
@@ -45,7 +52,7 @@ export class Queue<T> {
      * @sets if queue is FIFO or LIFO
      */
     set FIFO(val: boolean){
-        this.isFIFO = false
+        this.isFIFO = val
     }
 
     //methods

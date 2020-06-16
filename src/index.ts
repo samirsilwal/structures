@@ -2,6 +2,7 @@ console.log("Initial setup");
 
 import { LinkedList } from ".//ll"
 import { Stack } from "./stack"
+import { Queue } from "./queue"
 
 const mylist = new LinkedList<number>()
 mylist.append(1)
@@ -92,13 +93,25 @@ console.log(ss.unPile(1).toString)
 console.log(ss.size)
 console.log(ss.map(x => x + 12))
 
-console.log(new LinkedList<number>().fromArray([1,2,3,4, 5, 10, 89]).reverse())
+console.log(new LinkedList<number>().fromArray([1, 2, 3, 4, 5, 10, 89]).reverse())
 
-let y = new Stack<number>().fromLinkedList(new LinkedList<number>().fromArray([1,2,3,4]))
+let y = new Stack<number>().fromLinkedList(new LinkedList<number>().fromArray([1, 2, 3, 4]))
 console.log(y)
 console.log(y.reverse())
 
-console.log(new Stack<number>().fromArray([1,2,3]))
+console.log(new Stack<number>().fromArray([1, 2, 3]))
 
-let my = new LinkedList<number>().fromArray([12,11,45,78,10])
+// test queue
+console.log("test queue")
+const queue = new Queue<number>()
+queue.FIFO = false
+queue.enqueue(1)
+queue.enqueue(2)
+queue.enqueue(3)
+queue.enqueue(4)
+console.log(queue)
+queue.dequeue()
+queue.dequeue()
+console.log(queue)
+console.log(queue.front)
 
