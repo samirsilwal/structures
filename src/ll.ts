@@ -105,7 +105,7 @@ export class LinkedList<T> {
 
     /**
      * A Generic iterator function which loops over each el in collection.
-     * and apaplies callback to them along the traverse.
+     * and applies callback to them along the traverse.
      *
      * Able to perform sideeffects
      * 

@@ -11,15 +11,18 @@ import * as util from "util";
 export class Queue<T> {
     // properties
     private queue: LinkedList<T> = new LinkedList<T>()
+    private isFIFO: boolean = true
 
     //constructor
     constructor(obj: any = null) {
         obj && Object.assign(this, obj)
     }
+
     //console log print
     [util.inspect.custom](d, o) {
         this.queue.toString()
     }
+
     //getters
 
     /**
@@ -33,7 +36,16 @@ export class Queue<T> {
      * @returns the value at front of the queue.
      */
     get front() {
-        return this.queue.lhead
+        return this.isFIFO ? this.queue.lhead : this.queue.lbottom
+    }
+
+    //setters
+
+    /**
+     * @sets if queue is FIFO or LIFO
+     */
+    set FIFO(val: boolean){
+        this.isFIFO = false
     }
 
     //methods
@@ -53,8 +65,7 @@ export class Queue<T> {
      * @returns a queue removing the element at front of queue.
      */
     public dequeue = (): Queue<T> => {
-        this.queue = this.queue.ltail
+        this.isFIFO ? this.queue = this.queue.ltail : this.queue = this.queue.ltop
         return this
     }
-
 }
