@@ -6,7 +6,7 @@ import * as util from "util";
 // Custom type definations
 
 export type foreachFucntion<T> = (t: T) => void
-export type mForeachFucntion<T> = (t: T) => any
+export type mForeachFucntion<T> = (t: T) => T
 export type mapFunction<T, U> = (t: T) => U
 export type filterFunction<T> = (t: T) => boolean
 export type reduceFunction<T> = (t: T, acc: T) => T
