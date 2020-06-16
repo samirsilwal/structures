@@ -2,7 +2,7 @@ console.log("Initial setup");
 
 import { LinkedList } from ".//ll"
 import { Stack } from "./stack"
-import { Queue } from "./queue"
+import { Queue, priorityQueue } from "./queue"
 
 const mylist = new LinkedList<number>()
 mylist.append(1)
@@ -103,15 +103,15 @@ console.log(new Stack<number>().fromArray([1, 2, 3]))
 
 // test queue
 console.log("test queue")
-const queue = new Queue<number>()
+const queue = new priorityQueue<number>(3)
 queue.FIFO = false
 queue.enqueue(1)
 queue.enqueue(2)
 queue.enqueue(3)
-queue.enqueue(4)
 console.log(queue)
 queue.dequeue()
 queue.dequeue()
 console.log(queue)
 console.log(queue.front)
 
+ 

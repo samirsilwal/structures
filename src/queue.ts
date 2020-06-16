@@ -9,21 +9,22 @@ import * as util from "util";
  * A generic class implementing Queue structure.
  */
 export class Queue<T> {
-    // properties
-    private queue: LinkedList<T> = new LinkedList<T>()
+    //  properties
+    protected queue: LinkedList<T> = null
     private isFIFO: boolean = true
 
-    //constructor
+    // constructor
     constructor(obj: any = null) {
+        this.queue = new LinkedList<T>()
         obj && Object.assign(this, obj)
     }
 
-    //console log print
+    // console log print
     [util.inspect.custom](depth, opts) {
         return this.toString
     }
 
-    //getters
+    // getters
 
     /**
      * @returns the length of the queue.
@@ -46,16 +47,16 @@ export class Queue<T> {
         return this.isFIFO ? this.queue.lhead : this.queue.lbottom
     }
 
-    //setters
+    // setters
 
     /**
      * @sets if queue is FIFO or LIFO
      */
-    set FIFO(val: boolean){
+    set FIFO(val: boolean) {
         this.isFIFO = val
     }
 
-    //methods
+    // methods
 
     /**
      * Adds a value to the queue.
@@ -75,4 +76,40 @@ export class Queue<T> {
         this.isFIFO ? this.queue = this.queue.ltail : this.queue = this.queue.ltop
         return this
     }
+}
+
+export interface pQNode {
+    value: any,
+    priority: number
+}
+
+/**
+ * A generic class implementing priority queue structure.
+ * Extends the Queue class
+ */
+export class priorityQueue<T> extends Queue<T>{
+    // properties
+    private priorityLevels: number
+    private pQueue: LinkedList<pQNode> = new LinkedList<pQNode>()
+
+    // constructor
+    constructor(levels: number) {
+        super()
+        this.priorityLevels = levels
+    }
+
+    private summonNode = (value: T, priority=0): pQNode => {
+        return {
+            value,
+            priority
+        }
+    }
+
+    public pEnqueue = (val: T): priorityQueue<T> => {
+        this.enqueue(val)
+        this.pQueue.append(this.summonNode(val))
+        return this
+    }
+
+
 }
