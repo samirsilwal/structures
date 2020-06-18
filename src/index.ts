@@ -117,4 +117,6 @@ console.log(new Stack<number>().fromArray([1, 2, 3]))
 const testIndex = new LinkedList<number>().fromArray([1,2,3,4])
 console.log(testIndex.at(6))
 
+
+
  

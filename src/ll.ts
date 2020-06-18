@@ -443,7 +443,7 @@ export class LinkedList<T> {
     * @index index of the collection to be referenced.
     * @returns a unit element at particular index in the collection.
     */
-    public at = (index: number): T => {
+    private att = (index: number): T => {
         if (index < 0 || index >= this.length) {
             return null
         }
@@ -458,5 +458,24 @@ export class LinkedList<T> {
             i++
         }
         return el
+    }
+
+    /**
+    * @index index of the collection to be referenced.
+    * @returns a unit element at particular index in the collection.
+    */
+    public at = (index: number): T => {
+        if (index < 0 || index >= this.length) {
+            return null
+        }
+        let el: T = null
+        let i: number = 0
+        this.foreach(u => {
+            if (index === i) {
+                el = u;
+            }
+            i++;
+        });
+        return el;
     }
 }
