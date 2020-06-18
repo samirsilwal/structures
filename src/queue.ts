@@ -98,7 +98,7 @@ export class priorityQueue<T> extends Queue<T>{
         this.priorityLevels = levels
     }
 
-    private summonNode = (value: T, priority=0): pQNode => {
+    private summonNode = (value: T, priority = 0): pQNode => {
         return {
             value,
             priority
@@ -110,6 +110,5 @@ export class priorityQueue<T> extends Queue<T>{
         this.pQueue.append(this.summonNode(val))
         return this
     }
-
 
 }

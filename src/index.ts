@@ -102,16 +102,19 @@ console.log(y.reverse())
 console.log(new Stack<number>().fromArray([1, 2, 3]))
 
 // test queue
-console.log("test queue")
-const queue = new priorityQueue<number>(3)
-queue.FIFO = false
-queue.enqueue(1)
-queue.enqueue(2)
-queue.enqueue(3)
-console.log(queue)
-queue.dequeue()
-queue.dequeue()
-console.log(queue)
-console.log(queue.front)
+// console.log("test queue")
+// const queue = new priorityQueue<number>(3)
+// queue.FIFO = false
+// queue.pEnqueue(1)
+// queue.pEnqueue(2)
+// queue.pEnqueue(3)
+// console.log(queue)
+// queue.dequeue()
+// queue.dequeue()
+// console.log(queue)
+// console.log(queue.front)
+
+const testIndex = new LinkedList<number>().fromArray([1,2,3,4])
+console.log(testIndex.at(6))
 
  

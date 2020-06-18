@@ -437,4 +437,26 @@ export class LinkedList<T> {
         if (!this.ltop.length) return acc
         return this.ltop.reverse(acc)
     }
+
+    // Fix me later
+    /**
+    * @index index of the collection to be referenced.
+    * @returns a unit element at particular index in the collection.
+    */
+    public at = (index: number): T => {
+        if (index < 0 || index >= this.length) {
+            return null
+        }
+        let i: number = 0
+        let el: T = null
+        let temp: LinkedList<T> = this
+        while (temp.tail != null) {
+            if (i === index) {
+                el = temp.lhead
+            }
+            temp = temp.ltail
+            i++
+        }
+        return el
+    }
 }
