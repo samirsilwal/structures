@@ -1,6 +1,5 @@
 import { Stack } from "../stack"
 
-
 test('test instanceof', () => {
   const t = new Stack<number>()
   expect(t).toBeInstanceOf(Stack)

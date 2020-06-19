@@ -108,7 +108,7 @@ export class LinkedList<T> {
      * and applies callback to them along the traverse.
      *
      * Able to perform sideeffects
-     * 
+     *
      * @param callback A transform applied to each el in collection.
      * @param node (Node) wrapper for each list component. 
      * @returns void
@@ -149,13 +149,13 @@ export class LinkedList<T> {
         return temp
     }
 
-    //utility for toSting method
+    // utility for toSting method
 
     /**
      * Parses the object type of js to string.
      * @param obj an object type to be transformed
      * Note: obj refers to object not Object
-     * @returns stringified object  
+     * @returns stringified object
      */
     private parseObj = (obj: object) => {
         return JSON.stringify(obj).split(",").map(item => {
@@ -408,7 +408,7 @@ export class LinkedList<T> {
     }
 
     /**
-     *flatten a single depth of collection
+     * flatten a single depth of collection
      * @param acc accumulator to flatten the given collection
      * @returns a flatten linkedList of the elements
      */
@@ -440,9 +440,9 @@ export class LinkedList<T> {
 
     // Fix me later
     /**
-    * @index index of the collection to be referenced.
-    * @returns a unit element at particular index in the collection.
-    */
+     * @index index of the collection to be referenced.
+     * @returns a unit element at particular index in the collection.
+     */
     private att = (index: number): T => {
         if (index < 0 || index >= this.length) {
             return null

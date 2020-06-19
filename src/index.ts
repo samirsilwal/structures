@@ -95,7 +95,7 @@ console.log(ss.map(x => x + 12))
 
 console.log(new LinkedList<number>().fromArray([1, 2, 3, 4, 5, 10, 89]).reverse())
 
-let y = new Stack<number>().fromLinkedList(new LinkedList<number>().fromArray([1, 2, 3, 4]))
+const y = new Stack<number>().fromLinkedList(new LinkedList<number>().fromArray([1, 2, 3, 4]))
 console.log(y)
 console.log(y.reverse())
 
@@ -114,9 +114,6 @@ console.log(new Stack<number>().fromArray([1, 2, 3]))
 // console.log(queue)
 // console.log(queue.front)
 
-const testIndex = new LinkedList<number>().fromArray([1,2,3,4])
-console.log(testIndex.at(6))
-
-
-
+const testIndex = new LinkedList<any>().fromArray([1,2,"samir",4])
+console.log(testIndex.at(2))
  

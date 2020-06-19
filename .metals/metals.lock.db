@@ -1,0 +1,6 @@
+#FileLock
+#Fri Jun 19 10:16:33 NPT 2020
+hostName=localhost
+id=172cad89d980e810050a96e60710cb98491f2f2297e
+method=file
+server=localhost\:43223
