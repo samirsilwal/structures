@@ -478,4 +478,24 @@ export class LinkedList<T> {
         });
         return el;
     }
+
+    //ziping the collection
+    /**
+     * Groups the each element of two list into single.
+     * Both should have same length if not returns null.
+     * @param l linklist collection that is to be zipped.
+     * @returns a collection of collections of zipped elements.
+     */
+    public zip<U>(l: LinkedList<U>): LinkedList<LinkedList<any>> {
+        if (this.length != l.length) {
+            return null
+        }
+        const ll = (l1: LinkedList<T>, l2: LinkedList<U>, acc: LinkedList<any> = new LinkedList<any>()): LinkedList<LinkedList<any>> => {
+            if (!l1.tail) {
+                return acc
+            }
+            return ll(l1.ltail, l2.ltail, acc.append(new LinkedList<any>().append(l1.lhead)["+"](new LinkedList<any>().append(l2.lhead))))
+        }
+        return ll(this, l)
+    }
 }
