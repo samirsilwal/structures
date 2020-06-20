@@ -29,7 +29,7 @@ fi
 
 
 
-if [ "$BRANCH" == "dev" ] || [ "$BRANCH" == "master" ]; then
+if [ "$BRANCH" == "dev" ] || [ "$BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
     echo "Bumping the version: ${last_tag} -> ${new_tag}"
     git tag "${new_tag}"
 
