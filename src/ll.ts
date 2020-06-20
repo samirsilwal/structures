@@ -487,7 +487,6 @@ export class LinkedList<T> {
         return el;
     }
 
-    //ziping the collection
     /**
      * Groups the each element of two list into single.
      * Both should have same length if not returns null.
@@ -504,5 +503,13 @@ export class LinkedList<T> {
             }
             return t(l1.ltail, l2.ltail, acc.append(new LinkedList<any>().append(l1.lhead)["+"](new LinkedList<any>().append(l2.lhead))))
         }(this, l))
+    }
+
+    /**
+     * Get a random element from the LinkedList.
+     * @returns Random value from the collection.
+     */
+    public getRandom = (): T => {
+        return this.at(Math.floor(Math.random() * this.length))
     }
 }
