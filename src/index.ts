@@ -122,3 +122,4 @@ const sam = new LinkedList<number>().fromArray([1,2,3,4])
 const sil = new LinkedList<string>().fromArray(["sam", "sil", "ir", "wal"])
 
 const samsil = sam.zip(sil)
+console.log(samsil)
