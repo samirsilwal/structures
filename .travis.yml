@@ -7,7 +7,25 @@ cache:
     directories:
         - "node_modules"
 
-install: npm install
+branches:
+    only:
+        - master
+        - dev
 
+install:
+    - npm install
+
+    # install semver for versioning
+    - sudo curl https://raw.githubusercontent.com/fsaintjacques/semver-tool/2.1.0/src/semver -o /usr/local/bin/semver && sudo chmod +x /usr/local/bin/semver
+    - semver --version
+
+    # Hub cli
+    - sudo snap install hub --classic
+    - hub --version
+
+before_script:
+    - git config --global user.name "samirsilwal"
+    - git config --global user.email "samirsilwal2424@gmail.com"
 script:
     - npm run test
+    - ./release.sh
