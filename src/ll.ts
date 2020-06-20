@@ -337,47 +337,51 @@ export class LinkedList<T> {
     /**
      * Transform a collection of one domain or type to another.
      * @param callback: A call back method applied for each element of the collection.
-     * @param acc accumulator defaults to empty linkedlist.
      * @returns the transformed or mapped collection of linkedList itself.
      */
-    public map<U>(callback: mapFunction<T, U>, acc: LinkedList<U> = new LinkedList<U>()): LinkedList<U> {
-        if (!this.tail) {
-            return acc
-        }
-        return this.ltail.map(callback, acc["+"](new LinkedList<U>().append(callback(this.lhead))))
+    public map<U>(callback: mapFunction<T, U>): LinkedList<U> {
+        return (function t(l: LinkedList<T>, callback: mapFunction<T, U>, acc: LinkedList<U> = new LinkedList<U>()): LinkedList<U> {
+            if (!l.tail) {
+                return acc
+            }
+            return t(l.ltail, callback, acc["+"](new LinkedList<U>().append(callback(l.lhead))))
+        }(this, callback))
     }
 
     /**
      * Filter the el from the collection satisfying the predicate.
      * @param callback: A predicate callback method applied for each element of the collection.
-     * @param acc accumulator defaults to empty linkedlist.
      * @returns the filterd collection of linkedList itself which passes the predicate.
      */
-    public filter(callback: filterFunction<T>, acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T> {
-        if (!this.tail) return acc;
-        return callback(this.lhead) ? this.ltail.filter(callback, acc["+"](new LinkedList<T>().append(this.lhead))) : this.ltail.filter(callback, acc)
+    public filter(callback: filterFunction<T>): LinkedList<T> {
+        return (function t(l: LinkedList<T>, callback: filterFunction<T>, acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T> {
+            if (!l.tail) return acc;
+            return callback(l.lhead) ? t(l.ltail, callback, acc["+"](new LinkedList<T>().append(l.lhead))) : t(l.ltail, callback, acc)
+        }(this, callback))
     }
 
     /**
      * Reduce the collection to a single value transformed with callback anad accumulated.
      * @param callback: A predicate callback method applied for each element of the collection.
-     * @param acc accumulator defaults to null.
      * @returns the reduced collection of linkedList itself which passes the predicate.
      */
-    public reduce(callback: reduceFunction<T>, acc: T = null): T {
-        if (!this.tail) return acc;
-        return this.ltail.reduce(callback, callback(this.lhead, acc))
+    public reduce(callback: reduceFunction<T>): T {
+        return (function t(l: LinkedList<T>, callback: reduceFunction<T>, acc: T = null): T {
+            if (!l.tail) return acc;
+            return t(l.ltail, callback, callback(l.lhead, acc))
+        }(this, callback))
     }
 
     /**
      * Applies the callback to each el in the collection
      * @param callback A callback applied on each el of list.
-     * @param acc accumulator defaults to empty linkedlist.
      * @returns the collection applied to callback for each el. 
      */
-    public mForeach = (callback: mForeachFucntion<T>, acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T> => {
-        if (!this.tail) return acc
-        return this.ltail.mForeach(callback, acc["+"](new LinkedList<T>().append(callback(this.lhead))))
+    public mForeach = (callback: mForeachFucntion<T>): LinkedList<T> => {
+        return (function t(l: LinkedList<T>, callback: mForeachFucntion<T>, acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T> {
+            if (!l.tail) return acc
+            return t(l.ltail, callback, acc["+"](new LinkedList<T>().append(callback(l.lhead))))
+        }(this, callback))
     }
 
     /**
@@ -400,7 +404,7 @@ export class LinkedList<T> {
 
     /**
      * Returns the first item found as per predicate.
-     * predicate: function to filter the collection.
+     * @param predicate: function to filter the collection.
      * @returns value if found else null.
      */
     public find = (predicate: filterFunction<T>): T => {
@@ -409,33 +413,37 @@ export class LinkedList<T> {
 
     /**
      * flatten a single depth of collection
-     * @param acc accumulator to flatten the given collection
      * @returns a flatten linkedList of the elements
      */
-    public flatten = (acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T> => {
-        if (!this.tail) return acc;
-        return this.ltail.flatten(acc["+"](new LinkedList<T>(this.lhead)))
+    public flatten = (): LinkedList<T> => {
+        return (function t(l: LinkedList<T>, acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T> {
+            if (!l.tail) return acc;
+            return t(l.ltail, acc["+"](new LinkedList<T>(l.lhead)))
+        }(this))
     }
 
     /**
      * A monadic feature that maps and then flattens the collection.
      * @param callback function executed for the elements in the collection
-     * @param acc oprtional parameter to accumulate the flatten collection.
-     * @returns the flatten collection after being mapped
+     * @returns the flatten collection after being mapped.
      */
-    public flatmap<U>(callback: flatmapFunction<T, U>, acc: LinkedList<U> = new LinkedList<U>()): LinkedList<U> {
-        if (!this.tail) return acc
-        return this.ltail.flatmap(callback, acc["+"](callback(this.lhead)))
+    public flatmap<U>(callback: flatmapFunction<T, U>): LinkedList<U> {
+        return (function t(l: LinkedList<T>, callback: flatmapFunction<T, U>, acc: LinkedList<U> = new LinkedList<U>()){
+            if (!l.tail) return acc
+            return t(l.ltail, callback, acc["+"](callback(l.lhead)))
+        }(this, callback))
     }
 
     /**
-     * @acc accumulates the reversed collection
+     * Reverses the order of elements in collection.
      * @returns a linlkedlist of values in reverse order.
      */
-    public reverse = (acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T> => {
-        acc["+"](new LinkedList<T>().append(this.lbottom))
-        if (!this.ltop.length) return acc
-        return this.ltop.reverse(acc)
+    public reverse = (): LinkedList<T> => {
+        return (function t(l: LinkedList<T>, acc: LinkedList<T> = new LinkedList<T>()){
+            acc["+"](new LinkedList<T>().append(l.lbottom))
+            if (!l.ltop.length) return acc
+            return t(l.ltop, acc)
+        }(this))
     }
 
     // Fix me later
@@ -490,11 +498,11 @@ export class LinkedList<T> {
         if (this.length != l.length) {
             return null
         }
-        return (function ll(l1: LinkedList<T>, l2: LinkedList<U>, acc: LinkedList<any> = new LinkedList<any>()): LinkedList<LinkedList<any>> {
+        return (function t(l1: LinkedList<T>, l2: LinkedList<U>, acc: LinkedList<any> = new LinkedList<any>()): LinkedList<LinkedList<any>> {
             if (!l1.tail) {
                 return acc
             }
-            return ll(l1.ltail, l2.ltail, acc.append(new LinkedList<any>().append(l1.lhead)["+"](new LinkedList<any>().append(l2.lhead))))
+            return t(l1.ltail, l2.ltail, acc.append(new LinkedList<any>().append(l1.lhead)["+"](new LinkedList<any>().append(l2.lhead))))
         }(this, l))
     }
 }

@@ -99,7 +99,7 @@ const y = new Stack<number>().fromLinkedList(new LinkedList<number>().fromArray(
 console.log(y)
 console.log(y.reverse())
 
-console.log(new Stack<number>().fromArray([1, 2, 3]))
+console.log(new Stack<number>().fromArray([1, 2, 3])) 
 
 // test queue
 // console.log("test queue")
@@ -120,6 +120,5 @@ console.log(testIndex.at(2))
 
 const sam = new LinkedList<number>().fromArray([1,2,3,4])
 const sil = new LinkedList<string>().fromArray(["sam", "sil", "ir", "wal"])
-
-const samsil = sam.zip(sil)
-console.log(samsil)
+const tempo = sil.map(item => item + "hello")
+console.log(tempo)
