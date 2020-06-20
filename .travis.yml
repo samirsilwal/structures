@@ -1,6 +1,6 @@
 dist: xenial
 
-sudo: required 
+sudo: required
 
 language: python
 
@@ -22,6 +22,10 @@ install:
     # install semver for versioning
     - sudo curl https://raw.githubusercontent.com/fsaintjacques/semver-tool/2.1.0/src/semver -o /usr/local/bin/semver && sudo chmod +x /usr/local/bin/semver
     - semver --version
+
+    # Hub
+    - sudo snap install hub --classic
+    - hub --version
 
 before_script:
     - git config --global user.name "samirsilwal"

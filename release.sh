@@ -13,6 +13,8 @@ fi
 
 last_tag=$(git tag --sort=-creatordate | head -n 1)
 
+printfln "$last_tag"
+
 if [ -z "$last_tag" ]; then
     new_tag="1.0.0"
 else
@@ -30,6 +32,8 @@ fi
 if [ "$BRANCH" == "dev" ] || [ "$BRANCH" == "master" ]; then
     echo "Bumping the version: ${last_tag} -> ${new_tag}"
     git tag "${new_tag}"
+
+    hub release create "$new_tag" -m "$new_tag" || true
 fi
 
 
