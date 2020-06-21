@@ -30,6 +30,15 @@ install:
 before_script:
     - git config --global user.name "samirsilwal"
     - git config --global user.email "samirsilwal2424@gmail.com"
+
 script:
     - npm run test
     - ./release.sh
+
+deploy:
+    provider: npm
+    email: "$NPM_EMAIL"
+    api_key: "$NPM_API_TOKEN"
+    skip_cleanup: true
+    on:
+        branch: master
