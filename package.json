@@ -1,5 +1,5 @@
 {
-  "name": "structures",
+  "name": "structpp",
   "version": "1.0.0",
   "description": "A simple library of data structures with interesting features.",
   "main": "build/index.js",
@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/samirsilwal/errorjs.git"
+    "url": "git+https://github.com/samirsilwal/structures.git"
   },
   "keywords": [],
   "author": "Samir Silwal <samirsilwal2424@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/samirsilwal/errorjs/issues"
+    "url": "https://github.com/samirsilwal/structures/issues"
   },
-  "homepage": "https://github.com/samirsilwal/errorjs#readme",
+  "homepage": "https://github.com/samirsilwal/structures#readme",
   "devDependencies": {
     "@types/jest": "^26.0.0",
     "@types/node": "^14.0.13",
