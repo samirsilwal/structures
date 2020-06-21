@@ -538,4 +538,17 @@ export class LinkedList<T> {
             return t(l.ltop, n - 1, acc.append(l.lbottom))
         }(this, n))
     }
+
+    /**
+     * Find the cartesian product or cross product of the elements with given collection.
+     * @param l collection with ahick cross product is to be done.
+     * @returns A Linkelist of entire sample spaces of cross product collection.
+     */
+    public cross = (l: LinkedList<T>): LinkedList<LinkedList<any>> => {
+        return (function t(l1: LinkedList<T>, l2: LinkedList<T>, acc: LinkedList<any> = new LinkedList<any>()): LinkedList<LinkedList<T>>{
+            if (!l1.tail) return acc
+            l2.foreach(i => acc.append(new LinkedList<T>().append(l1.lhead)["+"](new LinkedList<T>().append(i))))
+            return t(l1.ltail, l2, acc)
+        }(this, l))
+    }
 }
