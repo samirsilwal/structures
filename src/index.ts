@@ -122,3 +122,6 @@ const sam = new LinkedList<number>().fromArray([1,2,3,4])
 const sil = new LinkedList<string>().fromArray(["sam", "sil", "ir", "wal"])
 const tempo = sil.map(item => item + "hello")
 console.log(tempo)
+
+console.log(sil.take(1))
+console.log(sil.pluck(1))

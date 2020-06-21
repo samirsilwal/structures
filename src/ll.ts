@@ -428,7 +428,7 @@ export class LinkedList<T> {
      * @returns the flatten collection after being mapped.
      */
     public flatmap<U>(callback: flatmapFunction<T, U>): LinkedList<U> {
-        return (function t(l: LinkedList<T>, callback: flatmapFunction<T, U>, acc: LinkedList<U> = new LinkedList<U>()){
+        return (function t(l: LinkedList<T>, callback: flatmapFunction<T, U>, acc: LinkedList<U> = new LinkedList<U>()) {
             if (!l.tail) return acc
             return t(l.ltail, callback, acc["+"](callback(l.lhead)))
         }(this, callback))
@@ -439,7 +439,7 @@ export class LinkedList<T> {
      * @returns a linlkedlist of values in reverse order.
      */
     public reverse = (): LinkedList<T> => {
-        return (function t(l: LinkedList<T>, acc: LinkedList<T> = new LinkedList<T>()){
+        return (function t(l: LinkedList<T>, acc: LinkedList<T> = new LinkedList<T>()) {
             acc["+"](new LinkedList<T>().append(l.lbottom))
             if (!l.ltop.length) return acc
             return t(l.ltop, acc)
@@ -511,5 +511,31 @@ export class LinkedList<T> {
      */
     public getRandom = (): T => {
         return this.at(Math.floor(Math.random() * this.length))
+    }
+
+    /**
+     * Allows to take n elements from head of the collection.
+     * @param n Number of element from front of collection to extract.
+     * @returns A collection of extracted n elements.
+     */
+    public take = (n: number): LinkedList<T> => {
+        if (n > this.length || n <= 0) return null
+        return (function t(l: LinkedList<T>, n: number, acc: LinkedList<T> = new LinkedList<T>()) {
+            if (n === 0) return acc
+            return t(l.ltail, n - 1, acc.append(l.lhead))
+        }(this, n))
+    }
+
+    /**
+     * Allows to take n elements from tail of the collection.
+     * @param n Number of element from back of collection to extract.
+     * @returns A collection of extracted n elements.
+     */
+    public pluck = (n: number): LinkedList<T> => {
+        if (n > this.length || n <= 0) return null
+        return (function t(l: LinkedList<T>, n: number, acc: LinkedList<T> = new LinkedList<T>()) {
+            if (n === 0) return acc.reverse()
+            return t(l.ltop, n - 1, acc.append(l.lbottom))
+        }(this, n))
     }
 }
