@@ -174,7 +174,7 @@ export class LinkedList<T> {
      * @param value (T) => type of unit of collection
      * @returns a Node with the given value
      */
-    public summonNode = (value: T): Node<T> => {
+    private summonNode = (value: T): Node<T> => {
         return {
             value,
             next: null
@@ -341,9 +341,7 @@ export class LinkedList<T> {
      */
     public map<U>(callback: mapFunction<T, U>): LinkedList<U> {
         return (function t(l: LinkedList<T>, callback: mapFunction<T, U>, acc: LinkedList<U> = new LinkedList<U>()): LinkedList<U> {
-            if (!l.tail) {
-                return acc
-            }
+            if (!l.tail) return acc
             return t(l.ltail, callback, acc["+"](new LinkedList<U>().append(callback(l.lhead))))
         }(this, callback))
     }
@@ -545,10 +543,19 @@ export class LinkedList<T> {
      * @returns A Linkelist of entire sample spaces of cross product collection.
      */
     public cross = (l: LinkedList<T>): LinkedList<LinkedList<any>> => {
-        return (function t(l1: LinkedList<T>, l2: LinkedList<T>, acc: LinkedList<any> = new LinkedList<any>()): LinkedList<LinkedList<T>>{
+        return (function t(l1: LinkedList<T>, l2: LinkedList<T>, acc: LinkedList<any> = new LinkedList<any>()): LinkedList<LinkedList<T>> {
             if (!l1.tail) return acc
             l2.foreach(i => acc.append(new LinkedList<T>().append(l1.lhead)["+"](new LinkedList<T>().append(i))))
             return t(l1.ltail, l2, acc)
         }(this, l))
+    }
+
+    /**
+     * Empty the collection.
+     * @returns the emptied list from the given collection.
+     */
+    public empty = (): LinkedList<T> => {
+        this.foreach(this.mRemove)
+        return this
     }
 }

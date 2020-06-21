@@ -129,3 +129,6 @@ console.log(sil.pluck(1))
 const samd = new LinkedList<number>().fromArray([1,2,3,4])
 
 console.log(sam.cross(samd).filter(i => i.at(0) > i.at(1)))
+console.log(samd.length)
+samd.empty()
+console.log(samd.length)
