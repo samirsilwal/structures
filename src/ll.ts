@@ -31,8 +31,9 @@ export class LinkedList<T> {
     private tail: Node<T> = null;
     private EMPTY_NODE: Node<T> = { value: null, next: null }
 
-    constructor(obj: any = null) {
-        obj && Object.assign(this, obj)
+    // Constructor
+    constructor(...params: any) {
+        this.fromArray(params)
     }
 
     // Getters
@@ -293,19 +294,6 @@ export class LinkedList<T> {
         return temp
     }
 
-    /**
-     * Note: non-recursive implementation
-     * @param list (LinkedList<T>): list needed to be appended to the end
-     * @returns the transformed or mapped collection of linkedList itself.
-     */
-    private "++" = (list: LinkedList<T>): LinkedList<T> => {
-        let node: Node<T> = list.head
-        while (node) {
-            this.append(node.value)
-            node = node.next
-        }
-        return this
-    }
 
     /**
      * Adds to LinkedList together just like string concat.
@@ -315,20 +303,6 @@ export class LinkedList<T> {
     public "+" = (list: LinkedList<T>): LinkedList<T> => {
         if (!list.tail) return this
         return this.append(list.lhead)["+"](list.ltail)
-    }
-    /**
-     * Non functional implementation of map
-     * @param callback : A call back method applied for each element of the collection.
-     * @param node defults to head of the collection.
-     * @returns the transformed or mapped collection of linkedList itself.
-     */
-    private testMap<U>(callback: mapFunction<T, U>, node: Node<T> = this.head): LinkedList<U> {
-        const temp: LinkedList<U> = new LinkedList<U>()
-        while (node) {
-            temp.append(callback(node.value))
-            node = node.next
-        }
-        return temp
     }
 
     // TODO: implement filter and reduce.....
@@ -416,7 +390,7 @@ export class LinkedList<T> {
     public flatten = (): LinkedList<T> => {
         return (function t(l: LinkedList<T>, acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T> {
             if (!l.tail) return acc;
-            return t(l.ltail, acc["+"](new LinkedList<T>(l.lhead)))
+            return t(l.ltail, acc["+"](Object.assign(new LinkedList<T>(), l.lhead)))
         }(this))
     }
 
@@ -444,27 +418,6 @@ export class LinkedList<T> {
         }(this))
     }
 
-    // Fix me later
-    /**
-     * @index index of the collection to be referenced.
-     * @returns a unit element at particular index in the collection.
-     */
-    private att = (index: number): T => {
-        if (index < 0 || index >= this.length) {
-            return null
-        }
-        let i: number = 0
-        let el: T = null
-        let temp: LinkedList<T> = this
-        while (temp.tail != null) {
-            if (i === index) {
-                el = temp.lhead
-            }
-            temp = temp.ltail
-            i++
-        }
-        return el
-    }
 
     /**
     * @index index of the collection to be referenced.
