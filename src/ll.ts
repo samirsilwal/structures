@@ -556,9 +556,11 @@ export class LinkedList<T> {
      * Computes a prefix scan of the elements of the collection.
      * @param i initialization for the operator operation.
      * @param op A binary operation performed on each scanned elements.
-     * @returns A List of the operator transformed el in each scan
+     * @returns A List of the operator transformed el in each scan from left to right
+     * 
+     * Note: the bottom of collection conatains the final accumulated result.
     */
-    public scan = (i: T): (op: (a: T, b: T) => T) => LinkedList<T> => {
+    public scanLeft = (i: T): (op: (a: T, b: T) => T) => LinkedList<T> => {
         if (this.forall(i => typeof i !== "number" && typeof i !== "string")) return
 
         return (function t(l: LinkedList<T>, i: T): (op: (a: T, b: T) => T, acc?: LinkedList<T>) => LinkedList<T> {
@@ -570,4 +572,26 @@ export class LinkedList<T> {
             }
         }(this, i))
     }
+
+
+    /**
+     * Computes a postfix scan of the elements of the collection.
+     * @param i initialization for the operator operation.
+     * @param op A binary operation performed on each scanned elements.
+     * @returns A List of the operator transformed el in each scan from right to left.
+     * 
+     * Note: the head of the collection contains the final accumulated result.
+    */
+   public scanRight = (i: T): (op: (a: T, b: T) => T) => LinkedList<T> => {
+    if (this.forall(i => typeof i !== "number" && typeof i !== "string")) return
+
+    return (function t(l: LinkedList<T>, i: T): (op: (a: T, b: T) => T, acc?: LinkedList<T>) => LinkedList<T> {
+        return (op: (a: T, b: T) => T, acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T> => {
+            acc.append(op(i, l.lbottom))
+            if (!l.ltop.length) return acc.reverse()
+
+            return t(l.ltop, op(i, l.lbottom))(op, acc)
+        }
+    }(this, i))
+}
 }
