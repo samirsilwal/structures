@@ -32,7 +32,7 @@ export class LinkedList<T> {
     private EMPTY_NODE: Node<T> = { value: null, next: null }
 
     // Constructor
-    constructor(...params: any) {
+    constructor(...params: T[]) {
         this.fromArray(params)
     }
 
@@ -550,5 +550,24 @@ export class LinkedList<T> {
      */
     public splitAt = (n: number): LinkedList<LinkedList<T>> => {
         return new LinkedList<LinkedList<T>>().append(this.take(n)).append(this.pluck(this.length - n))
+    }
+
+    /**
+     * Computes a prefix scan of the elements of the collection.
+     * @param i initialization for the operator operation.
+     * @param op A binary operation performed on each scanned elements.
+     * @returns A List of the operator transformed el in each scan
+    */
+    public scan = (i: T): (op: (a: T, b: T) => T) => LinkedList<T> => {
+        if (this.forall(i => typeof i !== "number" && typeof i !== "string")) return
+
+        return (function t(l: LinkedList<T>, i: T): (op: (a: T, b: T) => T, acc?: LinkedList<T>) => LinkedList<T> {
+            return (op: (a: T, b: T) => T, acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T> => {
+                acc.append(op(i, l.lhead))
+                if (!l.ltail.length) return acc
+
+                return t(l.ltail, op(i, l.lhead))(op, acc)
+            }
+        }(this, i))
     }
 }
