@@ -511,4 +511,44 @@ export class LinkedList<T> {
         this.foreach(this.mRemove)
         return this
     }
+
+    /**
+     * Check if all elements in list satisfy a predicate.
+     * @param pred A predicate applied to all elements in list.
+     * @returns true if predicate holds for all elements in list else false.
+     */
+    public forall = (pred: (t: T) => boolean): boolean => {
+        return this.filter(pred).length === this.length
+    }
+
+    /**
+     * Check if any element in list satisfy a predicate.
+     * @param pred A predicate applied to all elements in list.
+     * @returns true if predicate holds for any one element in list else false.
+     */
+    public exists = (pred: (t: T) => boolean): boolean => {
+        return this.filter(pred).length > 0
+    }
+
+    /**
+     * Generates a sequence of integers from 0 which can be initially transformed.
+     * @param l length of the dynamic list to be generated.
+     * @param p transform function applied dto each item in genetrated collection.
+     * @returns A LinkedList of numbers or transformed series of numbers.
+     */
+    public static generator(l: number, p: (i: number) => any): LinkedList<any> {
+        return (function t(l: number, p: (i: number) => any, temp: number = 0, acc: LinkedList<any> = new LinkedList<any>()) {
+            if (temp === l) return acc
+            return t(l, p, temp + 1, acc["+"](new LinkedList<any>(p(temp))))
+        }(l, p))
+    }
+
+    /**
+     * Split the given list into 2 lists.
+     * @param n number of elements to be included in first list.
+     * @returns  a splitted list with first containing n elements and rest in second list.
+     */
+    public splitAt = (n: number): LinkedList<LinkedList<T>> => {
+        return new LinkedList<LinkedList<T>>().append(this.take(n)).append(this.pluck(this.length - n))
+    }
 }
