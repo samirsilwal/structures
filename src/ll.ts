@@ -582,16 +582,40 @@ export class LinkedList<T> {
      * 
      * Note: the head of the collection contains the final accumulated result.
     */
-   public scanRight = (i: T): (op: (a: T, b: T) => T) => LinkedList<T> => {
-    if (this.forall(i => typeof i !== "number" && typeof i !== "string")) return
+    public scanRight = (i: T): (op: (a: T, b: T) => T) => LinkedList<T> => {
+        if (this.forall(i => typeof i !== "number" && typeof i !== "string")) return
 
-    return (function t(l: LinkedList<T>, i: T): (op: (a: T, b: T) => T, acc?: LinkedList<T>) => LinkedList<T> {
-        return (op: (a: T, b: T) => T, acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T> => {
-            acc.append(op(i, l.lbottom))
-            if (!l.ltop.length) return acc.reverse()
+        return (function t(l: LinkedList<T>, i: T): (op: (a: T, b: T) => T, acc?: LinkedList<T>) => LinkedList<T> {
+            return (op: (a: T, b: T) => T, acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T> => {
+                acc.append(op(i, l.lbottom))
+                if (!l.ltop.length) return acc.reverse()
 
-            return t(l.ltop, op(i, l.lbottom))(op, acc)
-        }
-    }(this, i))
-}
+                return t(l.ltop, op(i, l.lbottom))(op, acc)
+            }
+        }(this, i))
+    }
+
+    /**
+     * Get the longest prefix from the given collection passing the predicate.
+     * @param op predicate applied to each element in the collection.
+     * @returns a LinkedList of el satisfying the predicate until first unsatisfying occour.
+     */
+    public dropWhile = (op: (a: T) => boolean): LinkedList<T> => {
+        return (function t(l: LinkedList<T>, op: (a: T) => boolean, acc: LinkedList<T> = new LinkedList<T>()) {
+            if (!l.tail || !op(l.lhead)) return acc
+            return t(l.ltail, op, acc.append(l.lhead))
+        }(this, op))
+    }
+
+    /**
+     * Get the longest prefix from the given collection until traverse the el passing predicate.
+     * @param op predicate applied to each elem ent in the collection.
+     * @returns a LinkedList of el prefixing the first el satisfying the predicate.
+     */
+    public dropUntil = (op: (a: T) => boolean, acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T> => {
+        return (function t(l: LinkedList<T>, op: (a: T) => boolean, acc: LinkedList<T> = new LinkedList<T>()) {
+            if (!l.tail || op(l.lhead)) return acc
+            return t(l.ltail, op, acc.append(l.lhead))
+        }(this, op))
+    }
 }
