@@ -2,7 +2,7 @@
  *  Module of Stack structure defination.
  */
 
-import { LinkedList, mapFunction } from "./ll";
+import { LinkedList } from "./ll";
 import * as util from "util";
 
 /**
@@ -131,7 +131,7 @@ export class Stack<T> {
      * @param callback callback applied to each el in stack to form another
      * @returns a transformed Stack collection.
      */
-    public map<U>(callback: mapFunction<T, U>): Stack<U> {
+    public map<U>(callback: (t: T) => U): Stack<U> {
         return new Stack<U>().fromLinkedList(this.stack.map(callback))
     }
 

@@ -2,3 +2,6 @@ src
 tsconfig.json
 tslint.json
 nodemon.json
+release.sh
+.travis.yml
+jest.config.js
