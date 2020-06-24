@@ -639,30 +639,28 @@ export class LinkedList<T> {
         this.fromArray(val)["+"](temp)
     }
 
-    // needs to be modified with a comparator callback
+    // TODO:  needs to be modified for object comparision.....
     public sort = (op?: (a: T, b: T) => number): LinkedList<T> => {
 
-        function mergeSort(l: LinkedList<T>): LinkedList<T> {
+        return (function mergeSort(l: LinkedList<T>, op: (a, b) => number = (a, b) => a - b): LinkedList<T> {
+
             let n = Math.floor(l.length / 2)
 
             if (n === 0) {
                 return l
             } else {
-                const merge = (l1: LinkedList<T>, l2: LinkedList<T>) => {
+                const merge = (l1: LinkedList<any>, l2: LinkedList<any>) => {
                     if (l2 === null || l2 === undefined || l2.length <= 0) return l1
                     if (l1 === null || l1 === undefined || l1.length <= 0) return l2
 
-                    return (l1.lhead < l2.lhead) ? new LinkedList<T>(l1.lhead)["+"](merge(l1.ltail, l2)) : new LinkedList<T>(l2.lhead)["+"](merge(l1, l2.ltail))
-
+                    return op(l1.lhead, l2.lhead) < 0 ? new LinkedList<T>(l1.lhead)["+"](merge(l1.ltail, l2)) : new LinkedList<T>(l2.lhead)["+"](merge(l1, l2.ltail))
                 }
-
                 let splited = l.splitAt(n)
-                return merge(mergeSort(splited.at(0)), mergeSort(splited.at(1)))
+
+                return merge(mergeSort(splited.at(0), op), mergeSort(splited.at(1), op))
             }
 
-        }
-
-        return mergeSort(this)
+        }(this, op))
 
     }
 }
