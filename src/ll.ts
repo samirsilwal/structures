@@ -612,10 +612,57 @@ export class LinkedList<T> {
      * @param op predicate applied to each elem ent in the collection.
      * @returns a LinkedList of el prefixing the first el satisfying the predicate.
      */
-    public dropUntil = (op: (a: T) => boolean, acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T> => {
+    public dropUntil = (op: (a: T) => boolean): LinkedList<T> => {
         return (function t(l: LinkedList<T>, op: (a: T) => boolean, acc: LinkedList<T> = new LinkedList<T>()) {
             if (!l.tail || op(l.lhead)) return acc
             return t(l.ltail, op, acc.append(l.lhead))
         }(this, op))
+    }
+
+    /**
+     * Removes the element from the beginning from the collection.
+     * @returns the element removed from the list.
+     */
+    public shift = (): T => {
+        const el = this.lhead
+        return this.mRemove(this.lhead) ? el : null
+    }
+
+    /**
+     * Insert the element at the beginning of the collection.
+     * @param val elements to be inserted in front of the list 
+     * mutate the collection itself.
+     */
+    public unShift = (...val: T[]) => {
+        const temp = this.map(x => x)
+        this.empty()
+        this.fromArray(val)["+"](temp)
+    }
+
+    // needs to be modified with a comparator callback
+    public sort = (op?: (a: T, b: T) => number): LinkedList<T> => {
+
+        function mergeSort(l: LinkedList<T>): LinkedList<T> {
+            let n = Math.floor(l.length / 2)
+
+            if (n === 0) {
+                return l
+            } else {
+                const merge = (l1: LinkedList<T>, l2: LinkedList<T>) => {
+                    if (l2 === null || l2 === undefined || l2.length <= 0) return l1
+                    if (l1 === null || l1 === undefined || l1.length <= 0) return l2
+
+                    return (l1.lhead < l2.lhead) ? new LinkedList<T>(l1.lhead)["+"](merge(l1.ltail, l2)) : new LinkedList<T>(l2.lhead)["+"](merge(l1, l2.ltail))
+
+                }
+
+                let splited = l.splitAt(n)
+                return merge(mergeSort(splited.at(0)), mergeSort(splited.at(1)))
+            }
+
+        }
+
+        return mergeSort(this)
+
     }
 }

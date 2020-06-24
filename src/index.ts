@@ -14,5 +14,15 @@ console.log(c.scanLeft(0)((a, b) => a + b))
 console.log(c.scanRight(0)((a, b) => a + b))
 
 console.log(c.dropWhile(i => i % 2 == 0))
-const d = new LinkedList<number>(8,4,2,3,4,5)
+const d = new LinkedList<number>(8,4,2,3,4,11,205, 20, 5, 10)
 console.log(d.dropUntil(i => i % 2 != 0))
+
+console.log(d.mRemove(8))
+console.log(d.shift())
+console.log(d)
+
+d.unShift(2,100)
+console.log(d.length)
+
+console.log(d.sort())
+
