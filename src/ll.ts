@@ -3,15 +3,6 @@
  */
 import * as util from "util";
 
-// Custom type definations
-
-export type foreachFucntion<T> = (t: T) => void
-export type mForeachFucntion<T> = (t: T) => T
-export type mapFunction<T, U> = (t: T) => U
-export type filterFunction<T> = (t: T) => boolean
-export type reduceFunction<T> = (t: T, acc: T) => T
-export type flatmapFunction<T, U> = (t: T) => LinkedList<U>
-
 /**
  * Interface for a Node in LinkedList
  * value: a unit member of list
@@ -33,7 +24,9 @@ export class LinkedList<T> {
 
     // Constructor
     constructor(...params: T[]) {
-        this.fromArray(params)
+        if (params.length > 0) {
+            this.fromArray(params)
+        }
     }
 
     // Getters
@@ -159,11 +152,12 @@ export class LinkedList<T> {
      * @returns stringified object
      */
     private parseObj = (obj: object) => {
-        return JSON.stringify(obj).split(",").map(item => {
+        let d = JSON.stringify(obj).split(",").map(item => {
             const sp = item.split(":")
             sp[0] = sp[0].replace(/"/g, "")
             return sp.join(":")
         }).join(",").replace(/:/g, ": ").replace(/,/g, ", ").replace(/{/g, "{ ").replace(/}/g, " }").replace(/"/g, "'")
+        return d
     }
 
     /**
@@ -313,8 +307,8 @@ export class LinkedList<T> {
      * @param callback: A call back method applied for each element of the collection.
      * @returns the transformed or mapped collection of linkedList itself.
      */
-    public map<U>(callback: mapFunction<T, U>): LinkedList<U> {
-        return (function t(l: LinkedList<T>, callback: mapFunction<T, U>, acc: LinkedList<U> = new LinkedList<U>()): LinkedList<U> {
+    public map<U>(callback: (t: T) => U): LinkedList<U> {
+        return (function t(l: LinkedList<T>, callback: (t: T) => U, acc: LinkedList<U> = new LinkedList<U>()): LinkedList<U> {
             if (!l.tail) return acc
             return t(l.ltail, callback, acc["+"](new LinkedList<U>().append(callback(l.lhead))))
         }(this, callback))
@@ -323,10 +317,10 @@ export class LinkedList<T> {
     /**
      * Filter the el from the collection satisfying the predicate.
      * @param callback: A predicate callback method applied for each element of the collection.
-     * @returns the filterd collection of linkedList itself which passes the predicate.
+     * @returns the filtered collection of linkedList itself which passes the predicate.
      */
-    public filter(callback: filterFunction<T>): LinkedList<T> {
-        return (function t(l: LinkedList<T>, callback: filterFunction<T>, acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T> {
+    public filter(callback: (t: T) => boolean): LinkedList<T> {
+        return (function t(l: LinkedList<T>, callback: (t: T) => boolean, acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T> {
             if (!l.tail) return acc;
             return callback(l.lhead) ? t(l.ltail, callback, acc["+"](new LinkedList<T>().append(l.lhead))) : t(l.ltail, callback, acc)
         }(this, callback))
@@ -337,8 +331,8 @@ export class LinkedList<T> {
      * @param callback: A predicate callback method applied for each element of the collection.
      * @returns the reduced collection of linkedList itself which passes the predicate.
      */
-    public reduce(callback: reduceFunction<T>): T {
-        return (function t(l: LinkedList<T>, callback: reduceFunction<T>, acc: T = null): T {
+    public reduce(callback: (t: T, acc: T) => T): T {
+        return (function t(l: LinkedList<T>, callback: (t: T, acc: T) => T, acc: T = null): T {
             if (!l.tail) return acc;
             return t(l.ltail, callback, callback(l.lhead, acc))
         }(this, callback))
@@ -349,8 +343,8 @@ export class LinkedList<T> {
      * @param callback A callback applied on each el of list.
      * @returns the collection applied to callback for each el. 
      */
-    public mForeach = (callback: mForeachFucntion<T>): LinkedList<T> => {
-        return (function t(l: LinkedList<T>, callback: mForeachFucntion<T>, acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T> {
+    public mForeach = (callback: (t: T) => T): LinkedList<T> => {
+        return (function t(l: LinkedList<T>, callback:(t: T) => T, acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T> {
             if (!l.tail) return acc
             return t(l.ltail, callback, acc["+"](new LinkedList<T>().append(callback(l.lhead))))
         }(this, callback))
@@ -361,7 +355,7 @@ export class LinkedList<T> {
      * @param callback (Array<T>): Array of unit type T.
      * @returns the collection applied to callback for each el. 
      */
-    public foreach = (callback: foreachFucntion<T>): void => {
+    public foreach = (callback: (t: T) => void ): void => {
         this.iterateOver(i => callback(i))
     }
 
@@ -379,7 +373,7 @@ export class LinkedList<T> {
      * @param predicate: function to filter the collection.
      * @returns value if found else null.
      */
-    public find = (predicate: filterFunction<T>): T => {
+    public find = (predicate: (t: T) => boolean): T => {
         return this.filter(predicate).length > 0 ? this.lhead : null
     }
 
@@ -399,8 +393,8 @@ export class LinkedList<T> {
      * @param callback function executed for the elements in the collection
      * @returns the flatten collection after being mapped.
      */
-    public flatmap<U>(callback: flatmapFunction<T, U>): LinkedList<U> {
-        return (function t(l: LinkedList<T>, callback: flatmapFunction<T, U>, acc: LinkedList<U> = new LinkedList<U>()) {
+    public flatmap<U>(callback: (t: T) => LinkedList<U>): LinkedList<U> {
+        return (function t(l: LinkedList<T>, callback: (t: T) => LinkedList<U>, acc: LinkedList<U> = new LinkedList<U>()) {
             if (!l.tail) return acc
             return t(l.ltail, callback, acc["+"](callback(l.lhead)))
         }(this, callback))
@@ -639,8 +633,26 @@ export class LinkedList<T> {
         this.fromArray(val)["+"](temp)
     }
 
-    // TODO:  needs to be modified for object comparision.....
-    public sort = (op?: (a: T, b: T) => number): LinkedList<T> => {
+    /**
+     * Sorts the given element in the collection. default sorts to ascending order.
+     * for sorting object enter the key value in `key` filed for comparison. and give null to `op`
+     * 
+     * @param op comparison operator to distinguish the comparison for sorting
+     * @param key key of the object
+     */
+    public sort = (op?: (a: T, b: T) => number, key?: string): LinkedList<T> => {
+
+        if (this.length === 0) {
+            return new LinkedList<T>()
+        }
+
+        if (Object.prototype.toString.call(this.lhead) === '[object Object]' && key != null) {
+            op = (a, b) => {
+                if (a[key] > b[key]) return 1
+                else if (a[key] < b[key]) return -1
+                else return 0
+            }
+        }
 
         return (function mergeSort(l: LinkedList<T>, op: (a, b) => number = (a, b) => a - b): LinkedList<T> {
 
@@ -653,14 +665,12 @@ export class LinkedList<T> {
                     if (l2 === null || l2 === undefined || l2.length <= 0) return l1
                     if (l1 === null || l1 === undefined || l1.length <= 0) return l2
 
-                    return op(l1.lhead, l2.lhead) < 0 ? new LinkedList<T>(l1.lhead)["+"](merge(l1.ltail, l2)) : new LinkedList<T>(l2.lhead)["+"](merge(l1, l2.ltail))
+                    return op(l1.lhead, l2.lhead) < 0 ? new LinkedList<T>().append(l1.lhead)["+"](merge(l1.ltail, l2)) : new LinkedList<T>().append(l2.lhead)["+"](merge(l1, l2.ltail))
                 }
                 let splited = l.splitAt(n)
 
                 return merge(mergeSort(splited.at(0), op), mergeSort(splited.at(1), op))
             }
-
         }(this, op))
-
     }
 }
