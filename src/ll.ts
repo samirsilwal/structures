@@ -374,7 +374,8 @@ export class LinkedList<T> {
      * @returns value if found else null.
      */
     public find = (predicate: (t: T) => boolean): T => {
-        return this.filter(predicate).length > 0 ? this.lhead : null
+        const f = this.filter(predicate)
+        return f.length > 0 ? f.lhead : null
     }
 
     /**
