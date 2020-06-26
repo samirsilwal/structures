@@ -1,14 +1,14 @@
 {
-  "name": "structpp",
-  "version": "1.1.0",
+  "name": "structp",
+  "version": "1.0.2",
   "description": "A simple library of data structures with interesting features.",
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest --passWithNoTests",
     "start:dev": "tslint --project . && nodemon",
-    "build": "rimraf ./build && tsc",
-    "start": "npm run build && node ./build/index.js"
+    "build": "rimraf ./dist && tsc",
+    "start": "npm run build && node ./dist/index.js"
   },
   "repository": {
     "type": "git",
