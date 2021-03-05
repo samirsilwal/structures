@@ -1,35 +1,35 @@
 {
-  "name": "structpp",
-  "version": "1.1.0",
-  "description": "A simple library of data structures with interesting features.",
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
-  "scripts": {
-    "test": "jest --passWithNoTests",
-    "start:dev": "tslint --project . && nodemon",
-    "build": "rimraf ./build && tsc",
-    "start": "npm run build && node ./build/index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/samirsilwal/structures.git"
-  },
-  "keywords": [],
-  "author": "Samir Silwal <samirsilwal2424@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/samirsilwal/structures/issues"
-  },
-  "homepage": "https://github.com/samirsilwal/structures#readme",
-  "devDependencies": {
-    "@types/jest": "^26.0.0",
-    "@types/node": "^14.0.13",
-    "jest": "^26.0.1",
-    "nodemon": "^2.0.4",
-    "rimraf": "^3.0.2",
-    "ts-jest": "^26.1.0",
-    "ts-node": "^8.10.2",
-    "tslint": "^6.1.2",
-    "typescript": "^3.9.5"
+    "name": "structp",
+    "version": "1.0.3",
+    "description": "A simple library of data structures with interesting features.",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+      "test": "jest --passWithNoTests",
+      "start:dev": "tslint --project . && nodemon",
+      "build": "rimraf ./dist && tsc",
+      "start": "npm run build && node ./dist/index.js"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/samirsilwal/structures.git"
+    },
+    "keywords": [],
+    "author": "Samir Silwal <samirsilwal2424@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+      "url": "https://github.com/samirsilwal/structures/issues"
+    },
+    "homepage": "https://github.com/samirsilwal/structures#readme",
+    "devDependencies": {
+      "@types/jest": "^26.0.0",
+      "@types/node": "^14.0.13",
+      "jest": "^26.0.1",
+      "nodemon": "^2.0.4",
+      "rimraf": "^3.0.2",
+      "ts-jest": "^26.1.0",
+      "ts-node": "^8.10.2",
+      "tslint": "^6.1.2",
+      "typescript": "^3.9.5"
+    }
   }
-}

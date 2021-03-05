@@ -1,5 +1,5 @@
 /**
- *  Module of LinkedList structure defination.
+ *  Module of LinkedList structure definition.
  */
 import * as util from "util";
 
@@ -18,9 +18,9 @@ export interface Node<T> {
  */
 export class LinkedList<T> {
     // private properties
-    private head: Node<T> = null;
-    private tail: Node<T> = null;
-    private EMPTY_NODE: Node<T> = { value: null, next: null }
+    #head: Node<T> = null;
+    #tail: Node<T> = null;
+    #EMPTY_NODE: Node<T> = { value: null, next: null }
 
     // Constructor
     constructor(...params: T[]) {
@@ -42,7 +42,7 @@ export class LinkedList<T> {
      * @returns the tail value of the collection.
      */
     get lbottom() {
-        return this.tail.value
+        return this.#tail.value
     }
 
     /**
@@ -56,7 +56,7 @@ export class LinkedList<T> {
      * @returns the first value of the element.
      */
     get lhead() {
-        return this.head.value
+        return this.#head.value
     }
 
     /**
@@ -81,11 +81,11 @@ export class LinkedList<T> {
      */
     private appendToEnd = (node: Node<T>): void => {
         if (this.slength() === 1) {
-            this.head.next = node
+            this.#head.next = node
         } else {
-            this.tail.next = node
+            this.#tail.next = node
         }
-        this.tail = node
+        this.#tail = node
     }
 
     /**
@@ -107,7 +107,7 @@ export class LinkedList<T> {
      * @param node (Node) wrapper for each list component. 
      * @returns void
      */
-    private iterateOver = (callback: any, node: Node<T> = this.head): void => {
+    private iterateOver = (callback: any, node: Node<T> = this.#head): void => {
         if (!node) {
             return
         }
@@ -120,7 +120,7 @@ export class LinkedList<T> {
      * @param node (Node<T>): node of the collection
      * @returns the list of collection except the head unit
      */
-    private getlTail = (node: Node<T> = this.head.next): LinkedList<T> => {
+    private getlTail = (node: Node<T> = this.#head.next): LinkedList<T> => {
         const temp: LinkedList<T> = new LinkedList<T>()
         while (node) {
             temp.append(node.value)
@@ -134,7 +134,7 @@ export class LinkedList<T> {
      * @param node (Node<T>): node of the collection
      * @returns the list of collection except the tail unit
      */
-    private getlTop = (node: Node<T> = this.head): LinkedList<T> => {
+    private getlTop = (node: Node<T> = this.#head): LinkedList<T> => {
         const temp: LinkedList<T> = new LinkedList<T>()
         while (node.next) {
             temp.append(node.value)
@@ -163,7 +163,7 @@ export class LinkedList<T> {
     /**
      * @returns true if collection is empty
      */
-    public isEmpty = (): boolean => !this.head
+    public isEmpty = (): boolean => !this.#head
 
     /**
      * @param value (T) => type of unit of collection
@@ -185,8 +185,8 @@ export class LinkedList<T> {
         const node = this.summonNode(value)
 
         if (this.isEmpty()) {
-            this.head = node
-            this.tail = node
+            this.#head = node
+            this.#tail = node
             return this
         }
 
@@ -210,12 +210,12 @@ export class LinkedList<T> {
      */
     public mRemove = (value: T): boolean => {
         let deleted: boolean = false
-        if (this.head.value === value) {
-            this.head = this.head.next
+        if (this.#head.value === value) {
+            this.#head = this.#head.next
             deleted = true
         }
 
-        let currentNode = this.head || this.EMPTY_NODE
+        let currentNode = this.#head || this.#EMPTY_NODE
 
         while (currentNode.next) {
             if (currentNode.next.value === value) {
@@ -226,8 +226,8 @@ export class LinkedList<T> {
             }
         }
 
-        if (this.tail.value === value) {
-            this.tail = this.EMPTY_NODE
+        if (this.#tail.value === value) {
+            this.#tail = this.#EMPTY_NODE
             deleted = true
         }
 
@@ -295,7 +295,7 @@ export class LinkedList<T> {
      * @returns the transformed or mapped collection of linkedList itself.
      */
     public "+" = (list: LinkedList<T>): LinkedList<T> => {
-        if (!list.tail) return this
+        if (!list.#tail) return this
         return this.append(list.lhead)["+"](list.ltail)
     }
 
@@ -309,7 +309,7 @@ export class LinkedList<T> {
      */
     public map<U>(callback: (t: T) => U): LinkedList<U> {
         return (function t(l: LinkedList<T>, callback: (t: T) => U, acc: LinkedList<U> = new LinkedList<U>()): LinkedList<U> {
-            if (!l.tail) return acc
+            if (!l.#tail) return acc
             return t(l.ltail, callback, acc["+"](new LinkedList<U>().append(callback(l.lhead))))
         }(this, callback))
     }
@@ -321,7 +321,7 @@ export class LinkedList<T> {
      */
     public filter(callback: (t: T) => boolean): LinkedList<T> {
         return (function t(l: LinkedList<T>, callback: (t: T) => boolean, acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T> {
-            if (!l.tail) return acc;
+            if (!l.#tail) return acc;
             return callback(l.lhead) ? t(l.ltail, callback, acc["+"](new LinkedList<T>().append(l.lhead))) : t(l.ltail, callback, acc)
         }(this, callback))
     }
@@ -333,7 +333,7 @@ export class LinkedList<T> {
      */
     public reduce(callback: (t: T, acc: T) => T): T {
         return (function t(l: LinkedList<T>, callback: (t: T, acc: T) => T, acc: T = null): T {
-            if (!l.tail) return acc;
+            if (!l.#tail) return acc;
             return t(l.ltail, callback, callback(l.lhead, acc))
         }(this, callback))
     }
@@ -345,7 +345,7 @@ export class LinkedList<T> {
      */
     public mForeach = (callback: (t: T) => T): LinkedList<T> => {
         return (function t(l: LinkedList<T>, callback:(t: T) => T, acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T> {
-            if (!l.tail) return acc
+            if (!l.#tail) return acc
             return t(l.ltail, callback, acc["+"](new LinkedList<T>().append(callback(l.lhead))))
         }(this, callback))
     }
@@ -374,7 +374,8 @@ export class LinkedList<T> {
      * @returns value if found else null.
      */
     public find = (predicate: (t: T) => boolean): T => {
-        return this.filter(predicate).length > 0 ? this.lhead : null
+        const f = this.filter(predicate)
+        return f.length > 0 ? f.lhead : null
     }
 
     /**
@@ -383,7 +384,7 @@ export class LinkedList<T> {
      */
     public flatten = (): LinkedList<T> => {
         return (function t(l: LinkedList<T>, acc: LinkedList<T> = new LinkedList<T>()): LinkedList<T> {
-            if (!l.tail) return acc;
+            if (!l.#tail) return acc;
             return t(l.ltail, acc["+"](Object.assign(new LinkedList<T>(), l.lhead)))
         }(this))
     }
@@ -395,7 +396,7 @@ export class LinkedList<T> {
      */
     public flatmap<U>(callback: (t: T) => LinkedList<U>): LinkedList<U> {
         return (function t(l: LinkedList<T>, callback: (t: T) => LinkedList<U>, acc: LinkedList<U> = new LinkedList<U>()) {
-            if (!l.tail) return acc
+            if (!l.#tail) return acc
             return t(l.ltail, callback, acc["+"](callback(l.lhead)))
         }(this, callback))
     }
@@ -443,7 +444,7 @@ export class LinkedList<T> {
             return null
         }
         return (function t(l1: LinkedList<T>, l2: LinkedList<U>, acc: LinkedList<any> = new LinkedList<any>()): LinkedList<LinkedList<any>> {
-            if (!l1.tail) {
+            if (!l1.#tail) {
                 return acc
             }
             return t(l1.ltail, l2.ltail, acc.append(new LinkedList<any>().append(l1.lhead)["+"](new LinkedList<any>().append(l2.lhead))))
@@ -491,7 +492,7 @@ export class LinkedList<T> {
      */
     public cross = (l: LinkedList<T>): LinkedList<LinkedList<any>> => {
         return (function t(l1: LinkedList<T>, l2: LinkedList<T>, acc: LinkedList<any> = new LinkedList<any>()): LinkedList<LinkedList<T>> {
-            if (!l1.tail) return acc
+            if (!l1.#tail) return acc
             l2.foreach(i => acc.append(new LinkedList<T>().append(l1.lhead)["+"](new LinkedList<T>().append(i))))
             return t(l1.ltail, l2, acc)
         }(this, l))
@@ -596,7 +597,7 @@ export class LinkedList<T> {
      */
     public dropWhile = (op: (a: T) => boolean): LinkedList<T> => {
         return (function t(l: LinkedList<T>, op: (a: T) => boolean, acc: LinkedList<T> = new LinkedList<T>()) {
-            if (!l.tail || !op(l.lhead)) return acc
+            if (!l.#tail || !op(l.lhead)) return acc
             return t(l.ltail, op, acc.append(l.lhead))
         }(this, op))
     }
@@ -608,7 +609,7 @@ export class LinkedList<T> {
      */
     public dropUntil = (op: (a: T) => boolean): LinkedList<T> => {
         return (function t(l: LinkedList<T>, op: (a: T) => boolean, acc: LinkedList<T> = new LinkedList<T>()) {
-            if (!l.tail || op(l.lhead)) return acc
+            if (!l.#tail || op(l.lhead)) return acc
             return t(l.ltail, op, acc.append(l.lhead))
         }(this, op))
     }
@@ -667,9 +668,9 @@ export class LinkedList<T> {
 
                     return op(l1.lhead, l2.lhead) < 0 ? new LinkedList<T>().append(l1.lhead)["+"](merge(l1.ltail, l2)) : new LinkedList<T>().append(l2.lhead)["+"](merge(l1, l2.ltail))
                 }
-                let splited = l.splitAt(n)
+                let s = l.splitAt(n)
 
-                return merge(mergeSort(splited.at(0), op), mergeSort(splited.at(1), op))
+                return merge(mergeSort(s.at(0), op), mergeSort(s.at(1), op))
             }
         }(this, op))
     }
