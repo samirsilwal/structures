@@ -16,7 +16,7 @@ Currently available collection structures are :-
   - **lhead & ltail** : extract first element and rest list of items repectively. 
   - **ltop & lbottom** : extract n - 1 element from the list and get last element of list respectively.
 
-**NOTE** : These helpful method conveniently help in implementing recursive logic in the collection.
+**NOTE** : These helpful methods conveniently help in implementing recursive logic in the collection.
 
 2. Stack
   - pile and unpile: Append another stack on top of other or remove a pile of stack
