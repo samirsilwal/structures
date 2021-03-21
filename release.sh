@@ -55,10 +55,10 @@ if [ "$BRANCH" == "dev" ] || [ "$BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUES
     echo "Bumping the version: ${last_tag} -> ${new_tag}"
     git tag "${new_tag}"
 
-    changelog
-    git add CHANGELOG.md
+    # changelog
+    # git add CHANGELOG.md
 
-    export TEST=false
+    # export TEST=false
     
     hub release create "$new_tag" -m "$new_tag" || true
 fi
