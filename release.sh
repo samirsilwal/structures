@@ -1,5 +1,27 @@
 #!/bin/bash
 
+changelog() {
+  # NOTE: This requires github_changelog_generator to be installed.
+  # https://github.com/skywinder/github-changelog-generator
+
+  if [ -z "$NEXT" ]; then
+      NEXT="Unreleased"
+  fi
+
+  echo "Generating changelog upto version: $NEXT"
+  github_changelog_generator \
+    --user="samirsilwal" \
+    --project="structures" \
+    --token="$GITHUB_TOKEN" \
+    --no-verbose \
+    --pr-label "**Changes**" \
+    --bugs-label "**Bug Fixes**" \
+    --issues-label "**Closed Issues**" \
+    --future-release="$NEXT" \
+    --release-branch=master \
+    --exclude-labels=unnecessary,duplicate,question,invalid,wontfix
+}
+
 printfln() {
     printf "\n$1\n"
 }
@@ -33,6 +55,10 @@ if [ "$BRANCH" == "dev" ] || [ "$BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUES
     echo "Bumping the version: ${last_tag} -> ${new_tag}"
     git tag "${new_tag}"
 
+    changelog
+    git add CHANGELOG.md
+    git commit -m "Update changelog"
+    
     hub release create "$new_tag" -m "$new_tag" || true
 fi
 

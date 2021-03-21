@@ -23,6 +23,8 @@ install:
     - sudo curl https://raw.githubusercontent.com/fsaintjacques/semver-tool/2.1.0/src/semver -o /usr/local/bin/semver && sudo chmod +x /usr/local/bin/semver
     - semver --version
 
+    - gem install github_changelog_generator
+    
     # Hub
     - sudo snap install hub --classic
     - hub --version
@@ -36,8 +38,16 @@ script:
     - ./release.sh
 
 deploy:
-    provider: npm
-    email: "$NPM_EMAIL"
-    api_key: "$NPM_API_TOKEN"
-    on:
-        branch: master
+   - provider: pages
+     skip_cleanup: true
+     github_token: "$GITHUB_TOKEN"  # Set in the settings page of your repository, as a secure variable
+     keep_history: true
+     target_branch: dev
+     on:
+         branch: dev
+
+   - provider: npm
+     email: "$NPM_EMAIL"
+     api_key: "$NPM_API_TOKEN"
+     on:
+         branch: master
