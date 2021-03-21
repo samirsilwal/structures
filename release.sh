@@ -55,8 +55,8 @@ if [ "$BRANCH" == "dev" ] || [ "$BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUES
     echo "Bumping the version: ${last_tag} -> ${new_tag}"
     git tag "${new_tag}"
 
-    # changelog
-    # git add CHANGELOG.md
+    changelog
+    git add CHANGELOG.md
     echo "hello world" > hello.txt
     export TEST="version 1.0.4"
     
