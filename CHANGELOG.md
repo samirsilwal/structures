@@ -2,7 +2,7 @@
 
 ## [Unreleased](https://github.com/samirsilwal/structures/tree/Unreleased) (2021-03-21)
 
-[Full Changelog](https://github.com/samirsilwal/structures/compare/3.0.9-dev.20210321052533...Unreleased)
+[Full Changelog](https://github.com/samirsilwal/structures/compare/3.0.10-dev.20210321052728...Unreleased)
 
 **Changes**
 
@@ -11,6 +11,10 @@
 - dev to master [\#15](https://github.com/samirsilwal/structures/pull/15) ([samirsilwal](https://github.com/samirsilwal))
 - bump version  [\#10](https://github.com/samirsilwal/structures/pull/10) ([samirsilwal](https://github.com/samirsilwal))
 - Merge dev =====\> master [\#8](https://github.com/samirsilwal/structures/pull/8) ([samirsilwal](https://github.com/samirsilwal))
+
+## [3.0.10-dev.20210321052728](https://github.com/samirsilwal/structures/tree/3.0.10-dev.20210321052728) (2021-03-21)
+
+[Full Changelog](https://github.com/samirsilwal/structures/compare/3.0.9-dev.20210321052533...3.0.10-dev.20210321052728)
 
 ## [3.0.9-dev.20210321052533](https://github.com/samirsilwal/structures/tree/3.0.9-dev.20210321052533) (2021-03-21)
 
