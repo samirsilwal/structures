@@ -38,7 +38,8 @@ script:
     - ./release.sh
 
 before_deploy:
-    - export NEXT=${TEST}
+    - export NEXT=$(cat my_var.txt)
+    - rm my_var.txt
 
 deploy:
    - provider: pages:git
