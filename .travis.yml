@@ -51,7 +51,7 @@ deploy:
      committer_from_gh: true
      on:
         branch: dev
-        # condition: $TEST != "false"
+        condition: $NEXT != "false"
 
    - provider: npm
      email: "$NPM_EMAIL"
