@@ -37,13 +37,16 @@ script:
     - npm run test
     - ./release.sh
 
+before_deploy:
+    - export NEXT=${TEST}
+
 deploy:
    - provider: pages:git
      edge: true
      skip_cleanup: true
-     token: "$GITHUB_TOKEN"  
+     token: "$GITHUB_TOKEN"
      target_branch: dev
-     commit_message: "$TEST updated changelogs \n [skip ci]"
+     commit_message: "$NEXT Updated Changelogs \n [skip ci]"
      committer_from_gh: true
      on:
         branch: dev
