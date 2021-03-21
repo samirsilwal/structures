@@ -2,7 +2,7 @@
 
 ## [Unreleased](https://github.com/samirsilwal/structures/tree/Unreleased) (2021-03-21)
 
-[Full Changelog](https://github.com/samirsilwal/structures/compare/3.0.14-dev.20210321061451...Unreleased)
+[Full Changelog](https://github.com/samirsilwal/structures/compare/3.0.18-dev.20210321065556...Unreleased)
 
 **Changes**
 
@@ -11,6 +11,22 @@
 - dev to master [\#15](https://github.com/samirsilwal/structures/pull/15) ([samirsilwal](https://github.com/samirsilwal))
 - bump version  [\#10](https://github.com/samirsilwal/structures/pull/10) ([samirsilwal](https://github.com/samirsilwal))
 - Merge dev =====\> master [\#8](https://github.com/samirsilwal/structures/pull/8) ([samirsilwal](https://github.com/samirsilwal))
+
+## [3.0.18-dev.20210321065556](https://github.com/samirsilwal/structures/tree/3.0.18-dev.20210321065556) (2021-03-21)
+
+[Full Changelog](https://github.com/samirsilwal/structures/compare/3.0.17-dev.20210321064754...3.0.18-dev.20210321065556)
+
+## [3.0.17-dev.20210321064754](https://github.com/samirsilwal/structures/tree/3.0.17-dev.20210321064754) (2021-03-21)
+
+[Full Changelog](https://github.com/samirsilwal/structures/compare/3.0.16-dev.20210321062613...3.0.17-dev.20210321064754)
+
+## [3.0.16-dev.20210321062613](https://github.com/samirsilwal/structures/tree/3.0.16-dev.20210321062613) (2021-03-21)
+
+[Full Changelog](https://github.com/samirsilwal/structures/compare/3.0.15-dev.20210321062201...3.0.16-dev.20210321062613)
+
+## [3.0.15-dev.20210321062201](https://github.com/samirsilwal/structures/tree/3.0.15-dev.20210321062201) (2021-03-21)
+
+[Full Changelog](https://github.com/samirsilwal/structures/compare/3.0.14-dev.20210321061451...3.0.15-dev.20210321062201)
 
 ## [3.0.14-dev.20210321061451](https://github.com/samirsilwal/structures/tree/3.0.14-dev.20210321061451) (2021-03-21)
 
