@@ -58,7 +58,7 @@ if [ "$BRANCH" == "dev" ] || [ "$BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUES
     # changelog
     # git add CHANGELOG.md
     echo "hello world" > hello.txt
-    # export TEST=false
+    export TEST="version 1.0.4"
     
     hub release create "$new_tag" -m "$new_tag" || true
 fi
