@@ -41,13 +41,13 @@ deploy:
    - provider: pages:git
      edge: true
      skip_cleanup: true
-     token: "$GITHUB_TOKEN"  # Set in the settings page of your repository, as a secure variable
-     keep_history: true
+     token: "$GITHUB_TOKEN"  
      target_branch: dev
      commit_message: "updated changelogs \n [skip ci]"
      committer_from_gh: true
      on:
          branch: dev
+         condition: $TEST != false
 
    - provider: npm
      email: "$NPM_EMAIL"
