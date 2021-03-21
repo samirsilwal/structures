@@ -44,7 +44,7 @@ deploy:
      token: "$GITHUB_TOKEN"  # Set in the settings page of your repository, as a secure variable
      keep_history: true
      target_branch: dev
-     commit_message: $"updated changelog \n [skip ci]"
+     commit_message: "updated changelogs \n [skip ci]"
      committer_from_gh: true
      on:
          branch: dev
