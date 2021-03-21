@@ -46,8 +46,8 @@ deploy:
      commit_message: "updated changelogs \n [skip ci]"
      committer_from_gh: true
      on:
-         branch: dev
-         condition: $TEST != false
+        branch: dev
+        condition: $TEST != "false"
 
    - provider: npm
      email: "$NPM_EMAIL"
