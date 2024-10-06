@@ -127,6 +127,22 @@ export class Stack<T> {
     }
 
     /**
+     * Clears the stack.
+     * @returns a empty stack.
+     */
+    public clear = (): Stack<T> => {
+        this.stack = new LinkedList<T>()
+        return this
+    }
+
+    /**
+     * @returns the top element from stack.
+     */
+    public peek = (): T => {
+        return this.stack.lhead
+    }
+
+    /**
      * Maps the Stack from one type dodmain to other.
      * @param callback callback applied to each el in stack to form another
      * @returns a transformed Stack collection.
